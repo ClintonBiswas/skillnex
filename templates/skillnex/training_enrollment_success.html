@@ -1,0 +1,208 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Enrollment Submitted | Skillnex IT Academy
+{% endblock %}
+
+{% block meta_description %}
+    Your course enrollment request has been submitted successfully.
+{% endblock %}
+
+{% block content %}
+
+<section class="section bg-blue">
+
+    <div class="container">
+
+        <div class="row justify-content-center">
+
+            <div class="col-12 col-md-9 col-lg-7">
+
+                <div class="card-modern text-center p-4 p-lg-5">
+
+                    <!-- Success Icon -->
+                    <div class="d-flex align-items-center justify-content-center
+                                mx-auto mb-4 rounded-circle bg-secondary"
+                         style="width: 80px; height: 80px;">
+
+                        <i class="fa-solid fa-check fa-2x text-primary"></i>
+
+                    </div>
+
+
+                    <span class="text-primary fw-semibold">
+                        Enrollment Submitted
+                    </span>
+
+
+                    <h1 class="mt-2 mb-3">
+                        Thank You, {{ enrollment.name }}!
+                    </h1>
+
+
+                    <p class="text-muted-custom mb-4">
+                        Your enrollment request has been submitted
+                        successfully. Our Skillnex team will contact
+                        you shortly to confirm the next steps.
+                    </p>
+
+
+                    <!-- Enrollment Summary -->
+                    <div class="bg-soft rounded p-4 text-start mb-4">
+
+                        <div class="d-flex justify-content-between
+                                    gap-3 mb-3">
+
+                            <span class="text-muted-custom">
+                                Course
+                            </span>
+
+                            <strong class="text-end">
+                                {{ enrollment.course.name }}
+                            </strong>
+
+                        </div>
+
+
+                        {% if enrollment.batch %}
+
+                            <div class="d-flex justify-content-between
+                                        gap-3 mb-3">
+
+                                <span class="text-muted-custom">
+                                    Batch
+                                </span>
+
+                                <strong class="text-end">
+                                    {{ enrollment.batch.name }}
+                                </strong>
+
+                            </div>
+
+                        {% endif %}
+
+
+                        <div class="d-flex justify-content-between
+                                    gap-3 mb-3">
+
+                            <span class="text-muted-custom">
+                                Phone
+                            </span>
+
+                            <strong>
+                                {{ enrollment.phone }}
+                            </strong>
+
+                        </div>
+
+
+                        <div class="d-flex justify-content-between
+                                    gap-3">
+
+                            <span class="text-muted-custom">
+                                Payment
+                            </span>
+
+                            <strong>
+                                {{ enrollment.get_payment_method_display }}
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Next Steps -->
+                    <div class="text-start mb-4">
+
+                        <h2 class="h5 mb-3">
+                            What happens next?
+                        </h2>
+
+                        <div class="d-flex gap-3 mb-3">
+
+                            <div class="text-primary">
+                                <i class="fa-solid fa-circle-check"></i>
+                            </div>
+
+                            <div>
+                                <strong>Enrollment received</strong>
+
+                                <p class="small text-muted-custom mb-0">
+                                    We have received your enrollment request.
+                                </p>
+                            </div>
+
+                        </div>
+
+
+                        <div class="d-flex gap-3 mb-3">
+
+                            <div class="text-primary">
+                                <i class="fa-solid fa-phone"></i>
+                            </div>
+
+                            <div>
+                                <strong>Our team will contact you</strong>
+
+                                <p class="small text-muted-custom mb-0">
+                                    We will contact you using the phone
+                                    number you provided.
+                                </p>
+                            </div>
+
+                        </div>
+
+
+                        <div class="d-flex gap-3">
+
+                            <div class="text-primary">
+                                <i class="fa-solid fa-money-bill-wave"></i>
+                            </div>
+
+                            <div>
+                                <strong>Payment instructions</strong>
+
+                                <p class="small text-muted-custom mb-0">
+                                    Our team will provide the offline
+                                    payment details.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Actions -->
+                    <div class="d-flex flex-column flex-sm-row
+                                justify-content-center gap-3">
+
+                        <a
+                            href="{{ enrollment.course.get_absolute_url }}"
+                            class="btn btn-outline-secondary"
+                        >
+                            Back to Course
+                        </a>
+
+                        <a
+                            href="{% url 'skillnex:training' %}"
+                            class="btn btn-brand"
+                        >
+                            Explore Training
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

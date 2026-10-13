@@ -1,0 +1,411 @@
+{% extends "base.html" %}
+
+{% block title %}
+{{ category.name }} | Skillnex IT Academy
+{% endblock title %}
+
+{% block meta_description %}
+Explore {{ category.name }} courses at Skillnex IT Academy and build practical skills through hands-on training.
+{% endblock meta_description %}
+
+{% block content %}
+
+<!-- =========================================
+     Category Hero
+========================================== -->
+
+<section class="training-category-hero">
+
+    <div class="container">
+
+        <div class="row align-items-center g-5">
+
+            <div class="col-12 col-lg-7">
+
+                <a
+                    href="{% url 'skillnex:training' %}"
+                    class="training-category-hero__back"
+                >
+                    <i class="fa-solid fa-arrow-left"></i>
+                    <span>All Training</span>
+                </a>
+
+                <span class="training-category-hero__eyebrow">
+                    Training Category
+                </span>
+
+                <h1 class="training-category-hero__title">
+                    {{ category.name }}
+                </h1>
+
+                {% if category.description %}
+
+                    <p class="training-category-hero__description">
+                        {{ category.description }}
+                    </p>
+
+                {% elif category.short_description %}
+
+                    <p class="training-category-hero__description">
+                        {{ category.short_description }}
+                    </p>
+
+                {% endif %}
+
+                <div class="training-category-hero__meta">
+
+                    <div class="training-category-hero__meta-item">
+
+                        <span class="training-category-hero__meta-icon">
+                            <i class="fa-solid fa-book-open"></i>
+                        </span>
+
+                        <span>
+                            <strong>{{ courses|length }}</strong>
+                            Course{{ courses|length|pluralize }}
+                        </span>
+
+                    </div>
+
+                    <div class="training-category-hero__meta-item">
+
+                        <span class="training-category-hero__meta-icon">
+                            <i class="fa-solid fa-laptop-code"></i>
+                        </span>
+
+                        <span>
+                            Practical Learning
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-12 col-lg-5">
+
+                {% if category.image %}
+
+                    <div class="training-category-hero__image-wrapper">
+
+                        <img
+                            src="{{ category.image.url }}"
+                            alt="{{ category.name }}"
+                            class="training-category-hero__image"
+                        >
+
+                        <div class="training-category-hero__image-badge">
+
+                            {% if category.icon %}
+                                <i class="{{ category.icon }}"></i>
+                            {% else %}
+                                <i class="fa-solid fa-graduation-cap"></i>
+                            {% endif %}
+
+                            <span>
+                                Learn With Skillnex
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                {% else %}
+
+                    <div class="training-category-hero__placeholder">
+
+                        {% if category.icon %}
+                            <i class="{{ category.icon }}"></i>
+                        {% else %}
+                            <i class="fa-solid fa-graduation-cap"></i>
+                        {% endif %}
+
+                    </div>
+
+                {% endif %}
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================
+     Courses
+========================================== -->
+
+<section class="section training-courses-section">
+
+    <div class="container">
+
+        <div class="row align-items-end g-4 mb-5">
+
+            <div class="col-12 col-lg-8">
+
+                <span class="text-primary fw-semibold">
+                    Available Courses
+                </span>
+
+                <h2 class="mt-2 mb-3">
+                    Choose Your Learning Path
+                </h2>
+
+                <p class="text-muted-custom mb-0">
+                    Explore our {{ category.name|lower }} courses
+                    and choose the program that matches your
+                    current skill level and learning goals.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        {% if courses %}
+
+            <div class="row g-4">
+
+                {% for course in courses %}
+
+                    <div class="col-12 col-md-6">
+
+                        <article class="course-card">
+
+                            <div class="course-card__image-wrapper">
+
+                                {% if course.image %}
+
+                                    <img
+                                        src="{{ course.image.url }}"
+                                        alt="{{ course.name }}"
+                                        class="course-card__image"
+                                        loading="lazy"
+                                    >
+
+                                {% else %}
+
+                                    <div class="course-card__image-placeholder">
+
+                                        {% if course.icon %}
+                                            <i class="{{ course.icon }}"></i>
+                                        {% else %}
+                                            <i class="fa-solid fa-graduation-cap"></i>
+                                        {% endif %}
+
+                                    </div>
+
+                                {% endif %}
+
+                                <span class="course-card__level">
+
+                                    {% if course.level == "beginner" %}
+                                        Beginner
+                                    {% elif course.level == "intermediate" %}
+                                        Intermediate
+                                    {% elif course.level == "advanced" %}
+                                        Advanced
+                                    {% endif %}
+
+                                </span>
+
+                            </div>
+
+
+                            <div class="course-card__content">
+
+                                <div class="course-card__top">
+
+                                    <span class="course-card__category">
+                                        {{ category.name }}
+                                    </span>
+
+                                    <span class="course-card__course-number">
+                                        {{ forloop.counter|stringformat:"02d" }}
+                                    </span>
+
+                                </div>
+
+
+                                <h3 class="course-card__title">
+                                    {{ course.name }}
+                                </h3>
+
+
+                                {% if course.short_description %}
+
+                                    <p class="course-card__description">
+                                        {{ course.short_description }}
+                                    </p>
+
+                                {% endif %}
+
+
+                                <div class="course-card__details">
+
+                                    {% if course.duration %}
+
+                                        <span class="course-card__detail">
+
+                                            <i class="fa-regular fa-clock"></i>
+
+                                            {{ course.duration }}
+
+                                        </span>
+
+                                    {% endif %}
+
+
+                                    {% if course.total_classes %}
+
+                                        <span class="course-card__detail">
+
+                                            <i class="fa-solid fa-calendar-days"></i>
+
+                                            {{ course.total_classes }} Classes
+
+                                        </span>
+
+                                    {% endif %}
+
+                                </div>
+
+
+                                <div class="course-card__footer">
+
+                                    {% if course.price %}
+
+                                        <div class="course-card__price">
+
+                                            <small>
+                                                Course Fee
+                                            </small>
+
+                                            <strong>
+                                                ৳{{ course.price|floatformat:0 }}
+                                            </strong>
+
+                                        </div>
+
+                                    {% else %}
+
+                                        <span class="course-card__price-label">
+                                            Course Details
+                                        </span>
+
+                                    {% endif %}
+
+
+                                    <a
+                                        href="{{ course.get_absolute_url }}"
+                                        class="course-card__button"
+                                    >
+                                        <span>
+                                            Explore Course
+                                        </span>
+
+                                        <i class="fa-solid fa-arrow-up-right-from-square"></i>
+
+                                    </a>
+
+                                </div>
+
+                            </div>
+
+                        </article>
+
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+        {% else %}
+
+            <div class="training-courses-empty">
+
+                <div class="training-courses-empty__icon">
+                    <i class="fa-solid fa-graduation-cap"></i>
+                </div>
+
+                <h3>
+                    Courses Coming Soon
+                </h3>
+
+                <p>
+                    We are preparing practical {{ category.name|lower }}
+                    courses. Please check back soon for available
+                    training programs.
+                </p>
+
+                <a
+                    href="{% url 'skillnex:training' %}"
+                    class="btn-brand"
+                >
+                    Explore Other Training
+                    <i class="fa-solid fa-arrow-right"></i>
+                </a>
+
+            </div>
+
+        {% endif %}
+
+    </div>
+
+</section>
+
+
+<!-- =========================================
+     Learning CTA
+========================================== -->
+
+<section class="section-sm">
+
+    <div class="container">
+
+        <div class="course-category-cta">
+
+            <div class="row align-items-center g-4">
+
+                <div class="col-12 col-lg-8">
+
+                    <span class="course-category-cta__eyebrow">
+                        Start Your Learning Journey
+                    </span>
+
+                    <h2>
+                        Ready to Build Your Skills?
+                    </h2>
+
+                    <p>
+                        Explore our courses and take the next step
+                        toward developing practical digital skills.
+                    </p>
+
+                </div>
+
+                <div class="col-12 col-lg-4 text-lg-end">
+
+                    <a
+                        href="{% url 'skillnex:contact' %}"
+                        class="course-category-cta__button"
+                    >
+                        <span>Get Started</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock content %}

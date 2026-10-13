@@ -1,0 +1,243 @@
+<div class="featured-course-list">
+
+    <div class="row g-4">
+
+        {% for course in featured_courses %}
+
+            <div class="col-12 col-md-6 col-xl-4">
+
+                <article class="featured-course-card">
+
+                    <!-- Course Image -->
+
+                    <div class="featured-course-card__image-wrapper">
+
+                        {% if course.image %}
+
+                            <img
+                                src="{{ course.image.url }}"
+                                alt="{{ course.name }}"
+                                class="featured-course-card__image"
+                                loading="lazy"
+                            >
+
+                        {% else %}
+
+                            <div class="featured-course-card__image-placeholder">
+
+                                {% if course.icon %}
+
+                                    <i class="{{ course.icon }}"></i>
+
+                                {% else %}
+
+                                    <i class="fa-solid fa-graduation-cap"></i>
+
+                                {% endif %}
+
+                            </div>
+
+                        {% endif %}
+
+
+                        <!-- Featured Badge -->
+
+                        <span class="featured-course-card__badge">
+                            <i class="fa-solid fa-star"></i>
+                            Featured
+                        </span>
+
+
+                        <!-- Level -->
+
+                        <span class="featured-course-card__level">
+
+                            {% if course.level == "beginner" %}
+                                Beginner
+                            {% elif course.level == "intermediate" %}
+                                Intermediate
+                            {% elif course.level == "advanced" %}
+                                Advanced
+                            {% endif %}
+
+                        </span>
+
+                    </div>
+
+
+                    <!-- Course Content -->
+
+                    <div class="featured-course-card__content">
+
+                        <!-- Category -->
+
+                        <div class="featured-course-card__category">
+
+                            <i class="fa-solid fa-layer-group"></i>
+
+                            <span>
+                                {{ course.category.name }}
+                            </span>
+
+                        </div>
+
+
+                        <!-- Title -->
+
+                        <h3 class="featured-course-card__title">
+
+                            <a href="{{ course.get_absolute_url }}">
+                                {{ course.name }}
+                            </a>
+
+                        </h3>
+
+
+                        <!-- Description -->
+
+                        {% if course.short_description %}
+
+                            <p class="featured-course-card__description">
+                                {{ course.short_description }}
+                            </p>
+
+                        {% endif %}
+
+
+                        <!-- Course Details -->
+
+                        <div class="featured-course-card__details">
+
+                            {% if course.duration %}
+
+                                <span class="featured-course-card__detail">
+
+                                    <i class="fa-regular fa-clock"></i>
+
+                                    {{ course.duration }}
+
+                                </span>
+
+                            {% endif %}
+
+
+                            {% if course.total_classes %}
+
+                                <span class="featured-course-card__detail">
+
+                                    <i class="fa-solid fa-calendar-days"></i>
+
+                                    {{ course.total_classes }} Classes
+
+                                </span>
+
+                            {% endif %}
+
+                        </div>
+
+
+                        <!-- Footer -->
+
+                        <div class="featured-course-card__footer">
+
+                            {% if course.price %}
+
+                                <div class="featured-course-card__price">
+
+                                    <small>
+                                        Course Fee
+                                    </small>
+
+                                    <strong>
+                                        ৳{{ course.price|floatformat:0 }}
+                                    </strong>
+
+                                </div>
+
+                            {% else %}
+
+                                <div class="featured-course-card__price">
+
+                                    <small>
+                                        Course Fee
+                                    </small>
+
+                                    <strong>
+                                        Contact Us
+                                    </strong>
+
+                                </div>
+
+                            {% endif %}
+
+
+                            <a
+                                href="{{ course.get_absolute_url }}"
+                                class="featured-course-card__button"
+                                aria-label="Explore {{ course.name }}"
+                            >
+
+                                <i class="fa-solid fa-arrow-up-right-from-square"></i>
+
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                </article>
+
+            </div>
+
+        {% empty %}
+
+            <div class="col-12">
+
+                <div class="featured-course-list__empty">
+
+                    <div class="featured-course-list__empty-icon">
+
+                        <i class="fa-solid fa-graduation-cap"></i>
+
+                    </div>
+
+                    <h3>
+                        Featured Courses Coming Soon
+                    </h3>
+
+                    <p>
+                        We are preparing practical training programs
+                        to help you build valuable digital skills.
+                    </p>
+
+                </div>
+
+            </div>
+
+        {% endfor %}
+
+    </div>
+
+
+    {% if show_all_training_link and featured_courses %}
+
+        <div class="featured-course-list__footer text-center">
+
+            <a
+                href="{% url 'skillnex:training' %}"
+                class="featured-course-list__button"
+            >
+
+                <span>
+                    Explore All Training
+                </span>
+
+                <i class="fa-solid fa-arrow-right"></i>
+
+            </a>
+
+        </div>
+
+    {% endif %}
+
+</div>

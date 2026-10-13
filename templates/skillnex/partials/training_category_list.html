@@ -1,0 +1,120 @@
+<div class="training-category-list">
+
+<div class="row g-4">
+
+    {% for category in training_categories %}
+
+        <div class="col-12 col-md-6">
+
+            <article class="training-category-card">
+
+                {% if category.image %}
+
+                    <a
+                        href="{{ category.get_absolute_url }}"
+                        class="training-category-card__image-link"
+                        aria-label="Explore {{ category.name }}"
+                    >
+                        <div class="training-category-card__image-wrapper">
+
+                            <img
+                                src="{{ category.image.url }}"
+                                alt="{{ category.name }}"
+                                class="training-category-card__image"
+                                loading="lazy"
+                            >
+
+                            <span class="training-category-card__image-overlay">
+                                <span>
+                                    Explore
+                                    <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                                </span>
+                            </span>
+
+                        </div>
+                    </a>
+
+                {% endif %}
+
+
+                <div class="training-category-card__content">
+
+                    <div class="training-category-card__heading">
+
+                        <h3 class="training-category-card__title">
+                            {{ category.name }}
+                        </h3>
+
+                        <span class="training-category-card__arrow">
+                            <i class="{{category.icon}}"></i>
+                        </span>
+
+                    </div>
+
+
+                    {% if category.short_description %}
+
+                        <p class="training-category-card__description">
+                            {{ category.short_description }}
+                        </p>
+
+                    {% endif %}
+
+
+                    <a
+                        href="{{ category.get_absolute_url }}"
+                        class="training-category-card__link"
+                    >
+                        <span>Explore Training</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+
+                </div>
+
+            </article>
+
+        </div>
+
+    {% empty %}
+
+        <div class="col-12">
+
+            <div class="training-category-list__empty">
+
+                <i class="fa-solid fa-graduation-cap"></i>
+
+                <h3>
+                    Training Programs Coming Soon
+                </h3>
+
+                <p>
+                    We are preparing practical training programs
+                    to help you build valuable digital skills.
+                </p>
+
+            </div>
+
+        </div>
+
+    {% endfor %}
+
+</div>
+
+
+{% if show_all_training_link %}
+
+    <div class="training-category-list__footer text-center">
+
+        <a
+            href="{% url 'skillnex:training' %}"
+            class="training-category-list__button"
+        >
+            <span>Explore All Training</span>
+            <i class="fa-solid fa-arrow-right"></i>
+        </a>
+
+    </div>
+
+{% endif %}
+
+</div>

@@ -1,0 +1,378 @@
+{% extends 'base.html' %}
+
+
+{% block title %}
+    Our Services | Skillnex IT Academy
+{% endblock title %}
+
+
+{% block meta_description %}
+    Explore Skillnex IT Academy's professional digital services including website development, digital marketing, SEO, graphic design, e-commerce development, and custom web applications.
+{% endblock meta_description %}
+
+
+{% block extra_css %}
+{% endblock extra_css %}
+
+
+{% block content %}
+
+    <!-- =====================================================
+         SERVICES HERO
+         ===================================================== -->
+
+    <section class="services-hero">
+
+        <div class="container">
+
+            <div class="row align-items-center g-5">
+
+                <div class="col-12 col-lg-7">
+
+                    <div class="services-hero__content">
+
+                        <span class="services-hero__eyebrow">
+                            <i class="fa-solid fa-sparkles"></i>
+                            What We Do
+                        </span>
+
+                        <h1 class="services-hero__title">
+                            Digital Solutions
+                            <span>Built for Your Growth</span>
+                        </h1>
+
+                        <p class="services-hero__description">
+                            From professional websites and e-commerce platforms
+                            to digital marketing, branding, and custom web
+                            applications, we help businesses build a stronger
+                            digital presence.
+                        </p>
+
+                        <div class="services-hero__actions">
+
+                            <a
+                                href="{% url 'skillnex:contact' %}"
+                                class="btn-brand"
+                            >
+                                <span>Start a Project</span>
+                                <i class="fa-solid fa-arrow-right"></i>
+                            </a>
+
+                            <a
+                                href="#all-services"
+                                class="services-hero__secondary-btn"
+                            >
+                                <span>Explore Services</span>
+                                <i class="fa-solid fa-arrow-down"></i>
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="col-12 col-lg-5">
+
+                    <div class="services-hero__visual">
+
+                        <div class="services-hero__visual-card">
+
+                            <div class="services-hero__visual-icon">
+                                <i class="fa-solid fa-layer-group"></i>
+                            </div>
+
+                            <span class="services-hero__visual-label">
+                                Complete Digital Solutions
+                            </span>
+
+                            <h2>
+                                Everything You Need
+                                <span>Under One Roof.</span>
+                            </h2>
+
+                            <p>
+                                Strategy, design, development and growth —
+                                connected together to help your business
+                                move forward.
+                            </p>
+
+                            <div class="services-hero__visual-line"></div>
+
+                            <div class="services-hero__visual-footer">
+                                <span>
+                                    <i class="fa-solid fa-circle-check"></i>
+                                    Professional
+                                </span>
+
+                                <span>
+                                    <i class="fa-solid fa-circle-check"></i>
+                                    Reliable
+                                </span>
+
+                                <span>
+                                    <i class="fa-solid fa-circle-check"></i>
+                                    Scalable
+                                </span>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         ALL SERVICES
+         ===================================================== -->
+
+    <section
+        class="section services-section"
+        id="all-services"
+    >
+
+        <div class="container">
+
+            <div class="row justify-content-center mb-5">
+
+                <div class="col-12 col-lg-8 text-center">
+
+                    <span class="services-section__eyebrow">
+                        Our Expertise
+                    </span>
+
+                    <h2 class="services-section__title">
+                        Explore Our Digital Services
+                    </h2>
+
+                    <p class="services-section__description">
+                        Practical digital solutions designed to help your
+                        business attract customers, build credibility,
+                        and grow online.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            {% include "skillnex/partials/service_list.html" %}
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         WHY SKILLNEX
+         ===================================================== -->
+
+    <section class="section services-benefits">
+
+        <div class="container">
+
+            <div class="row align-items-center g-5">
+
+                <div class="col-12 col-lg-5">
+
+                    <div class="services-benefits__content">
+
+                        <span class="services-benefits__eyebrow">
+                            Why Skillnex
+                        </span>
+
+                        <h2>
+                            More Than Just
+                            <span>Digital Services.</span>
+                        </h2>
+
+                        <p>
+                            We focus on understanding your business first,
+                            then creating digital solutions that are practical,
+                            professional, and built around your goals.
+                        </p>
+
+                        <a
+                            href="{% url 'skillnex:contact' %}"
+                            class="btn-brand"
+                        >
+                            <span>Let's Work Together</span>
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+
+                    </div>
+
+                </div>
+
+
+                <div class="col-12 col-lg-7">
+
+                    <div class="row g-4">
+
+                        <div class="col-12 col-md-6">
+
+                            <div class="services-benefit-card">
+
+                                <div class="services-benefit-card__icon">
+                                    <i class="fa-solid fa-bullseye"></i>
+                                </div>
+
+                                <h3>
+                                    Goal Focused
+                                </h3>
+
+                                <p>
+                                    We build solutions around your business
+                                    objectives instead of using a
+                                    one-size-fits-all approach.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="col-12 col-md-6">
+
+                            <div class="services-benefit-card">
+
+                                <div class="services-benefit-card__icon">
+                                    <i class="fa-solid fa-laptop-code"></i>
+                                </div>
+
+                                <h3>
+                                    Modern Technology
+                                </h3>
+
+                                <p>
+                                    We use modern tools and development
+                                    practices to create reliable digital
+                                    experiences.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="col-12 col-md-6">
+
+                            <div class="services-benefit-card">
+
+                                <div class="services-benefit-card__icon">
+                                    <i class="fa-solid fa-chart-line"></i>
+                                </div>
+
+                                <h3>
+                                    Growth Oriented
+                                </h3>
+
+                                <p>
+                                    Our solutions are designed to support
+                                    your marketing, customer experience,
+                                    and long-term growth.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="col-12 col-md-6">
+
+                            <div class="services-benefit-card">
+
+                                <div class="services-benefit-card__icon">
+                                    <i class="fa-solid fa-headset"></i>
+                                </div>
+
+                                <h3>
+                                    Ongoing Support
+                                </h3>
+
+                                <p>
+                                    We help you maintain, improve, and
+                                    evolve your digital presence as
+                                    your business grows.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         CTA
+         ===================================================== -->
+
+    <section class="services-cta">
+
+        <div class="container">
+
+            <div class="services-cta__box">
+
+                <div class="row align-items-center g-4">
+
+                    <div class="col-12 col-lg-8">
+
+                        <span class="services-cta__eyebrow">
+                            Have a Project in Mind?
+                        </span>
+
+                        <h2>
+                            Let's Build Something
+                            <span>Great Together.</span>
+                        </h2>
+
+                        <p>
+                            Tell us what you need and let's discuss how
+                            we can turn your idea into a practical digital
+                            solution.
+                        </p>
+
+                    </div>
+
+
+                    <div class="col-12 col-lg-4 text-lg-end">
+
+                        <a
+                            href="{% url 'skillnex:contact' %}"
+                            class="services-cta__button"
+                        >
+                            <span>Get Started</span>
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+{% endblock content %}
+
+
+{% block extra_js %}
+{% endblock extra_js %}

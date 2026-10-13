@@ -1,0 +1,91 @@
+<div class="service-list">
+
+    <div class="row g-4">
+
+        {% for service in service_list %}
+
+            <div class="col-12 col-md-6">
+
+                <article class="service-card">
+
+                    <div class="service-card__top">
+
+                        <span class="service-card__number">
+                            {% if forloop.counter < 10 %}
+                                0{{ forloop.counter }}
+                            {% else %}
+                                {{ forloop.counter }}
+                            {% endif %}
+                        </span>
+
+                        {% if service.icon %}
+                            <div class="service-card__icon">
+                                <i class="{{ service.icon }}"></i>
+                            </div>
+                        {% endif %}
+
+                    </div>
+
+                    <div class="service-card__body">
+
+                        <h3 class="service-card__title">
+                            {{ service.name }}
+                        </h3>
+
+                        <p class="service-card__description">
+                            {{ service.short_description }}
+                        </p>
+
+                    </div>
+
+                    <a
+                        href="{% url 'skillnex:service-details' service.slug %}"
+                        class="service-card__link"
+                        aria-label="View details of {{ service.name }}"
+                    >
+                        <span>View Details</span>
+
+                        <span class="service-card__arrow">
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </span>
+                    </a>
+
+                </article>
+
+            </div>
+
+        {% empty %}
+
+            <div class="col-12">
+                <div class="service-list__empty">
+                    <i class="fa-solid fa-layer-group"></i>
+
+                    <h3>No Services Available</h3>
+
+                    <p>
+                        Our services will be available here soon.
+                    </p>
+                </div>
+            </div>
+
+        {% endfor %}
+
+    </div>
+
+    {% if show_all_services_link %}
+
+        <div class="service-list__footer text-center">
+
+            <a
+                href="{% url 'skillnex:service' %}"
+                class="btn-brand service-list__button"
+            >
+                <span>View All Services</span>
+                <i class="fa-solid fa-arrow-right"></i>
+            </a>
+
+        </div>
+
+    {% endif %}
+
+</div>

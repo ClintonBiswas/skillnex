@@ -1,0 +1,114 @@
+{% if instructors %}
+
+<!-- ================================
+     Our Instructors
+================================= -->
+
+<section class="training-instructors-section section">
+
+    <div class="container">
+
+        <!-- Section Header -->
+        <div class="row justify-content-center text-center mb-5">
+
+            <div class="col-lg-8">
+
+                <span class="training-instructors-eyebrow">
+                    <i class="fa-solid fa-chalkboard-user"></i>
+                    Meet Our Instructors
+                </span>
+
+                <h2 class="training-instructors-title">
+                    Learn From
+                    <span>Experienced Instructors.</span>
+                </h2>
+
+                <p class="training-instructors-description">
+                    Learn practical skills from instructors who focus on
+                    real-world knowledge, hands-on practice, and helping
+                    students build confidence for their careers.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- Instructors -->
+        <div class="row g-4">
+
+            {% for instructor in instructors %}
+
+                <div class="col-6 col-lg-3">
+
+                    <article class="training-instructor-card">
+
+                        <!-- Instructor Image -->
+                        <div class="training-instructor-card__image">
+
+                            {% if instructor.image %}
+
+                                <img
+                                    src="{{ instructor.image.url }}"
+                                    alt="{{ instructor.name }}"
+                                    loading="lazy"
+                                >
+
+                            {% else %}
+
+                                <div class="training-instructor-card__placeholder">
+                                    <i class="fa-solid fa-user"></i>
+                                </div>
+
+                            {% endif %}
+
+                            <!-- Hover Icon -->
+                            <div class="training-instructor-card__overlay">
+
+                                <span>
+                                    <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- Instructor Info -->
+                        <div class="training-instructor-card__content">
+
+                            <h3 class="training-instructor-card__name">
+                                {{ instructor.name }}
+                            </h3>
+
+                            {% if instructor.designation %}
+
+                                <p class="training-instructor-card__designation">
+                                    {{ instructor.designation }}
+                                </p>
+
+                            {% endif %}
+
+                            {% if instructor.bio %}
+
+                                <p class="training-instructor-card__bio">
+                                    {{ instructor.bio }}
+                                </p>
+
+                            {% endif %}
+
+                        </div>
+
+                    </article>
+
+                </div>
+
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endif %}

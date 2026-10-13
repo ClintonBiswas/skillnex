@@ -1,0 +1,827 @@
+{% extends 'base.html' %}
+
+
+{% block title %}
+    Skillnex IT Academy | Digital Solutions for Your Business
+{% endblock title %}
+
+
+{% block meta_description %}
+    Skillnex IT Academy provides professional website design and development,
+    digital marketing, SEO, graphic design, e-commerce development, and custom
+    web applications to help businesses grow online.
+{% endblock meta_description %}
+
+
+{% block extra_css %}
+
+<style>
+
+    /* =========================================================
+       HERO SECTION
+    ========================================================= */
+
+    .home-hero {
+        position: relative;
+        overflow: hidden;
+        padding: 6rem 0 5rem;
+        background:
+            radial-gradient(
+                circle at 85% 20%,
+                rgba(251, 137, 0, 0.10),
+                transparent 32%
+            ),
+            linear-gradient(
+                135deg,
+                #ffffff 0%,
+                #fffaf5 100%
+            );
+    }
+
+
+    .home-hero__content {
+        position: relative;
+        z-index: 2;
+    }
+
+
+    .home-hero__badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin-bottom: 1.25rem;
+        padding: 0.5rem 0.9rem;
+        border: 1px solid rgba(251, 137, 0, 0.20);
+        border-radius: var(--radius-pill);
+        background: rgba(255, 231, 211, 0.65);
+        color: var(--color-primary-dark);
+        font-size: var(--font-size-sm);
+        font-weight: var(--fw-semibold);
+    }
+
+
+    .home-hero__badge-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--color-primary);
+        box-shadow: 0 0 0 5px rgba(251, 137, 0, 0.10);
+    }
+
+
+    .home-hero__title {
+        max-width: 700px;
+        margin-bottom: 1.5rem;
+        font-size: clamp(2.5rem, 5vw, 4.5rem);
+        font-weight: var(--fw-extrabold);
+        line-height: 1.08;
+        letter-spacing: -0.04em;
+    }
+
+
+    .home-hero__title-highlight {
+        color: var(--color-primary);
+    }
+
+
+    .home-hero__description {
+        max-width: 650px;
+        margin-bottom: 2rem;
+        color: var(--color-text-muted);
+        font-size: var(--font-size-lg);
+        line-height: 1.8;
+    }
+
+
+    .home-hero__actions {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 0.75rem;
+    }
+
+
+    .home-hero__primary-btn,
+    .home-hero__secondary-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.55rem;
+        min-height: 48px;
+        padding: 0.75rem 1.25rem;
+        border-radius: var(--radius-md);
+        font-size: var(--font-size-sm);
+        font-weight: var(--fw-semibold);
+        transition:
+            transform var(--transition-base),
+            background-color var(--transition-base),
+            border-color var(--transition-base),
+            color var(--transition-base),
+            box-shadow var(--transition-base);
+    }
+
+
+    .home-hero__primary-btn {
+        border: 1px solid var(--color-primary);
+        background: var(--color-primary);
+        color: var(--color-white);
+    }
+
+
+    .home-hero__primary-btn:hover {
+        border-color: var(--color-primary-dark);
+        background: var(--color-primary-dark);
+        color: var(--color-white);
+        transform: translateY(-2px);
+        box-shadow: 0 10px 25px rgba(251, 137, 0, 0.22);
+    }
+
+
+    .home-hero__secondary-btn {
+        border: 1px solid var(--color-border);
+        background: var(--color-white);
+        color: var(--color-heading);
+    }
+
+
+    .home-hero__secondary-btn:hover {
+        border-color: #BBF7D0;
+        background: #F0FDF4;
+        color: #15803D;
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-sm);
+    }
+
+
+    /* =========================================================
+       SERVICE CARD
+    ========================================================= */
+
+    .home-services-card {
+        position: relative;
+        overflow: hidden;
+        height: 100%;
+        padding: 1.75rem;
+        border: 1px solid rgba(229, 231, 235, 0.9);
+        border-radius: var(--radius-xl);
+        background: rgba(255, 255, 255, 0.92);
+        box-shadow: 0 18px 45px rgba(15, 23, 42, 0.08);
+    }
+
+
+    .home-services-card::before {
+        content: "";
+        position: absolute;
+        top: -80px;
+        right: -80px;
+        width: 180px;
+        height: 180px;
+        border-radius: 50%;
+        background: rgba(251, 137, 0, 0.08);
+    }
+
+
+    .home-services-card__header {
+        position: relative;
+        z-index: 1;
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 1rem;
+        margin-bottom: 1.25rem;
+    }
+
+
+    .home-services-card__eyebrow {
+        margin-bottom: 0.35rem;
+        color: var(--color-primary);
+        font-size: var(--font-size-xs);
+        font-weight: var(--fw-bold);
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+    }
+
+
+    .home-services-card__title {
+        margin-bottom: 0;
+        font-size: var(--font-size-xl);
+        font-weight: var(--fw-bold);
+    }
+
+
+    .home-services-card__icon {
+        flex: 0 0 42px;
+        width: 42px;
+        height: 42px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: var(--radius-md);
+        background: var(--color-secondary);
+        color: var(--color-primary);
+        font-size: 1rem;
+    }
+
+
+    .home-services-list {
+        position: relative;
+        z-index: 1;
+        display: flex;
+        flex-direction: column;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+
+
+    .home-service-item {
+        border-bottom: 1px solid #F1F5F9;
+    }
+
+
+    .home-service-item:last-child {
+        border-bottom: 0;
+    }
+
+
+    .home-service-link {
+        display: flex;
+        align-items: center;
+        gap: 0.85rem;
+        padding: 0.9rem 0;
+        color: var(--color-heading);
+        font-size: var(--font-size-sm);
+        font-weight: var(--fw-semibold);
+        transition:
+            color var(--transition-base),
+            transform var(--transition-base);
+    }
+
+
+    .home-service-link:hover {
+        color: var(--color-primary);
+        transform: translateX(4px);
+    }
+
+
+    .home-service-icon {
+        flex: 0 0 38px;
+        width: 38px;
+        height: 38px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: var(--radius-md);
+        background: #FFF7ED;
+        color: var(--color-primary);
+        font-size: 0.9rem;
+    }
+
+
+    .home-service-name {
+        flex-grow: 1;
+    }
+
+
+    .home-service-arrow {
+        color: #9CA3AF;
+        font-size: 0.8rem;
+        transition: transform var(--transition-base);
+    }
+
+
+    .home-service-link:hover .home-service-arrow {
+        color: var(--color-primary);
+        transform: translateX(3px);
+    }
+
+
+    .home-services-card__footer {
+        position: relative;
+        z-index: 1;
+        margin-top: 1rem;
+        padding-top: 1rem;
+        border-top: 1px solid #F1F5F9;
+    }
+
+
+    .home-services-card__view-all {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        color: var(--color-primary);
+        font-size: var(--font-size-sm);
+        font-weight: var(--fw-bold);
+        transition:
+            color var(--transition-base),
+            transform var(--transition-base);
+    }
+
+
+    .home-services-card__view-all:hover {
+        color: var(--color-primary-dark);
+        transform: translateX(3px);
+    }
+
+
+    /* =========================================================
+       COMPANY STATS
+    ========================================================= */
+
+    .home-stats {
+        padding: 4rem 0;
+        background: var(--color-bg-blue);
+    }
+
+
+    .home-stats__intro {
+        max-width: 650px;
+        margin: 0 auto 2.5rem;
+        text-align: center;
+    }
+
+
+    .home-stats__eyebrow {
+        margin-bottom: 0.5rem;
+        color: var(--color-primary);
+        font-size: var(--font-size-sm);
+        font-weight: var(--fw-bold);
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+    }
+
+
+    .home-stats__title {
+        margin-bottom: 0.75rem;
+    }
+
+
+    .home-stats__description {
+        margin-bottom: 0;
+        color: var(--color-text-muted);
+    }
+
+
+    .home-stat {
+        height: 100%;
+        padding: 1.5rem;
+        border: 1px solid rgba(229, 231, 235, 0.9);
+        border-radius: var(--radius-lg);
+        background: var(--color-white);
+        text-align: center;
+        box-shadow: var(--shadow-sm);
+        transition:
+            transform var(--transition-base),
+            box-shadow var(--transition-base);
+    }
+
+
+    .home-stat:hover {
+        transform: translateY(-4px);
+        box-shadow: var(--shadow-md);
+    }
+
+
+    .home-stat__value {
+        margin-bottom: 0.35rem;
+        color: var(--color-primary);
+        font-size: clamp(1.8rem, 4vw, 2.5rem);
+        font-weight: var(--fw-extrabold);
+        line-height: 1.1;
+    }
+
+
+    .home-stat__label {
+        margin-bottom: 0;
+        color: var(--color-text-muted);
+        font-size: var(--font-size-sm);
+        font-weight: var(--fw-semibold);
+    }
+
+
+    /* =========================================================
+       HOME RESPONSIVE
+    ========================================================= */
+
+    @media (max-width: 991.98px) {
+
+        .home-hero {
+            padding: 4.5rem 0 4rem;
+        }
+
+        .home-hero__title {
+            max-width: 650px;
+        }
+
+        .home-services-card {
+            margin-top: 2rem;
+        }
+
+    }
+
+
+    @media (max-width: 575.98px) {
+
+        .home-hero {
+            padding: 3.5rem 0 3rem;
+        }
+
+        .home-hero__description {
+            font-size: var(--font-size-base);
+        }
+
+        .home-hero__actions {
+            flex-direction: column;
+            align-items: stretch;
+        }
+
+        .home-hero__primary-btn,
+        .home-hero__secondary-btn {
+            width: 100%;
+        }
+
+        .home-services-card {
+            padding: 1.25rem;
+        }
+
+        .home-stats {
+            padding: 3rem 0;
+        }
+
+    }
+
+</style>
+
+{% endblock extra_css %}
+
+
+{% block content %}
+
+    <!-- =====================================================
+         HERO SECTION
+    ====================================================== -->
+
+    <section class="home-hero">
+
+        <div class="container">
+
+            <div class="row align-items-center g-5">
+
+                <!-- Hero Content -->
+                <div class="col-12 col-lg-7">
+
+                    <div class="home-hero__content">
+
+                        <div class="home-hero__badge">
+                            <span class="home-hero__badge-dot"></span>
+                            Bangladesh's Premier Digital Agency
+                        </div>
+
+                        <h1 class="home-hero__title">
+                            Complete A–Z
+                            <span class="home-hero__title-highlight">
+                                Digital Solutions
+                            </span>
+                            for Your Business
+                        </h1>
+
+                        <p class="home-hero__description">
+                            From website design and development to branding,
+                            digital marketing, e-commerce, and custom web
+                            applications — we provide practical digital
+                            solutions designed to help your business grow.
+                        </p>
+
+                        <div class="home-hero__actions">
+
+                            <a
+                                href=""
+                                class="home-hero__primary-btn"
+                            >
+                                Get Started
+                                <i class="fa-solid fa-arrow-right"></i>
+                            </a>
+
+                            <a
+                                href="https://wa.me/8801571050302"
+                                class="home-hero__secondary-btn"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                <i class="fa-brands fa-whatsapp"></i>
+                                WhatsApp Us
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- Services Card -->
+                <div class="col-12 col-lg-5">
+
+                    <div class="home-services-card">
+
+                        <div class="home-services-card__header">
+
+                            <div>
+                                <p class="home-services-card__eyebrow">
+                                    What We Do
+                                </p>
+
+                                <h2 class="home-services-card__title">
+                                    Our Services
+                                </h2>
+                            </div>
+
+                            <div class="home-services-card__icon">
+                                <i class="fa-solid fa-layer-group"></i>
+                            </div>
+
+                        </div>
+
+
+                        <ul class="home-services-list">
+
+                            {% for service in service_list%}
+
+                                <li class="home-service-item">
+
+                                    <a
+                                        href="{{service.get_absolute_url}}"
+                                        class="home-service-link"
+                                    >
+
+                                        <span class="home-service-icon">
+
+                                            {% if service.icon %}
+                                                <i class="{{ service.icon }}"></i>
+                                            {% else %}
+                                                <i class="fa-solid fa-circle-check"></i>
+                                            {% endif %}
+
+                                        </span>
+
+                                        <span class="home-service-name">
+                                            {{ service.name }}
+                                        </span>
+
+                                        <i class="fa-solid fa-arrow-right home-service-arrow"></i>
+
+                                    </a>
+
+                                </li>
+
+                            {% empty %}
+
+                                <li class="py-3 text-muted-custom">
+                                    No services available at the moment.
+                                </li>
+
+                            {% endfor %}
+
+                        </ul>
+
+
+                        <div class="home-services-card__footer">
+
+                            <a
+                                href="{% url 'skillnex:service' %}"
+                                class="home-services-card__view-all"
+                            >
+                                <span>View All Services</span>
+                                <i class="fa-solid fa-arrow-right"></i>
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         COMPANY HISTORY / STATISTICS
+    ====================================================== -->
+
+    <section class="home-stats">
+
+        <div class="container">
+
+            <div class="home-stats__intro">
+
+                <p class="home-stats__eyebrow">
+                    Our Journey
+                </p>
+
+                <h2 class="home-stats__title">
+                    Building Digital Success Together
+                </h2>
+
+                <p class="home-stats__description">
+                    We combine creativity, technology, and practical
+                    digital strategies to help individuals and businesses
+                    achieve their goals.
+                </p>
+
+            </div>
+
+
+            {% if company_history %}
+
+                <div class="row g-3 g-lg-4">
+
+                    <div class="col-6 col-lg-3">
+                        <div class="home-stat">
+                            <div class="home-stat__value">
+                                {{ company_history.project_complete }}+
+                            </div>
+                            <p class="home-stat__label">
+                                Projects Completed
+                            </p>
+                        </div>
+                    </div>
+
+
+                    <div class="col-6 col-lg-3">
+                        <div class="home-stat">
+                            <div class="home-stat__value">
+                                {{ company_history.happy_clients }}+
+                            </div>
+                            <p class="home-stat__label">
+                                Happy Clients
+                            </p>
+                        </div>
+                    </div>
+
+
+                    <div class="col-6 col-lg-3">
+                        <div class="home-stat">
+                            <div class="home-stat__value">
+                                {{ company_history.years_of_experience }}+
+                            </div>
+                            <p class="home-stat__label">
+                                Years of Experience
+                            </p>
+                        </div>
+                    </div>
+
+
+                    <div class="col-6 col-lg-3">
+                        <div class="home-stat">
+                            <div class="home-stat__value">
+                                {{ company_history.client_satisfication }}%
+                            </div>
+                            <p class="home-stat__label">
+                                Client Satisfaction
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+
+            {% else %}
+
+                <div class="text-center text-muted-custom">
+                    <p class="mb-0">
+                        Company statistics will be available soon.
+                    </p>
+                </div>
+
+            {% endif %}
+
+        </div>
+
+    </section>
+    <!-- Training Program Start -->
+     <section class="section bg-blue">
+
+
+        <div class="container">
+
+            <div class="row align-items-end g-4 mb-5">
+
+                <div class="col-12 col-lg-8">
+
+                    <span class="text-primary fw-semibold">
+                        Learn With Skillnex
+                    </span>
+
+                    <h2 class="mt-2 mb-3">
+                        Build Skills for the Digital World
+                    </h2>
+
+                    <p class="text-muted-custom mb-0">
+                        Learn practical digital skills through hands-on
+                        training designed to help you build confidence,
+                        work on real-world projects, and prepare for
+                        future opportunities.
+                    </p>
+
+                </div>
+
+
+                <div class="col-12 col-lg-4 text-lg-end">
+
+                    <a
+                        href="{% url 'skillnex:training' %}"
+                        class="training-section__top-link"
+                    >
+                        <span>Explore All Training</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            {% include "skillnex/partials/training_category_list.html" %}
+
+        </div>
+
+
+        </section>
+
+        <!-- Feature Course section -->
+
+        <section class="section">
+    <div class="container">
+
+        <div class="row align-items-end g-4 mb-5">
+
+            <div class="col-12 col-lg-8">
+
+                <span class="text-primary fw-semibold">
+                    Featured Courses
+                </span>
+
+                <h2 class="mt-2 mb-3">
+                    Start Learning With Skillnex
+                </h2>
+
+                <p class="text-muted-custom mb-0">
+                    Explore our featured training programs and build
+                    practical digital skills for your future.
+                </p>
+
+            </div>
+
+        </div>
+
+        {% include "skillnex/partials/featured_course_list.html" %}
+
+    </div>
+</section>
+
+
+
+    <!-- Service List Section -->
+<section class="section bg-soft">
+
+    <div class="container">
+
+        <div class="row justify-content-center mb-5">
+
+            <div class="col-12 col-lg-8 text-center">
+
+                <span class="text-primary fw-semibold">
+                    What We Do
+                </span>
+
+                <h2 class="mt-2 mb-3">
+                    Digital Solutions Built for Growth
+                </h2>
+
+                <p class="text-muted-custom mb-0">
+                    From websites and e-commerce to marketing and custom
+                    applications, we provide practical digital solutions
+                    designed around your business goals.
+                </p>
+
+            </div>
+
+        </div>
+
+        {% include "skillnex/partials/service_list.html" %}
+
+    </div>
+
+</section>
+<!-- Recent work section -->
+{% include "skillnex/partials/recent-work.html" %}
+{% include "skillnex/partials/reviews.html" %}
+{% endblock content %}
+
+
+{% block extra_js %}
+
+{% endblock extra_js %}
+

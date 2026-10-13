@@ -1,0 +1,119 @@
+{% if featured_projects %}
+<section class="recent-work-section section">
+    <div class="container">
+
+        <!-- Section Header -->
+        <div class="row align-items-end g-4 mb-5">
+
+            <div class="col-lg-8">
+                <span class="recent-work-eyebrow">
+                    <i class="fa-solid fa-sparkles"></i>
+                    Our Recent Work
+                </span>
+
+                <h2 class="recent-work-title">
+                    Ideas We Turned Into
+                    <span>Real Projects.</span>
+                </h2>
+
+                <p class="recent-work-description mb-0">
+                    Explore some of the websites, digital experiences, and
+                    solutions we've created for businesses and organizations.
+                </p>
+            </div>
+
+            <div class="col-lg-4 text-lg-end">
+                <a href="{% url 'skillnex:projects' %}"
+                   class="recent-work-view-all">
+                    View All Projects
+                    <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                </a>
+            </div>
+
+        </div>
+
+
+        <!-- Projects -->
+        <div class="row g-4">
+
+            {% for project in featured_projects|slice:":3" %}
+
+                <div class="col-md-6 col-lg-4">
+
+                    <article class="recent-work-card">
+
+                        <!-- Image -->
+                        <div class="recent-work-card__image">
+
+                            {% if project.image %}
+                                <img
+                                    src="{{ project.image.url }}"
+                                    alt="{{ project.name }}"
+                                    loading="lazy"
+                                >
+                            {% else %}
+                                <div class="recent-work-card__placeholder">
+                                    <i class="fa-solid fa-image"></i>
+                                </div>
+                            {% endif %}
+
+                            <!-- Overlay -->
+                            <div class="recent-work-card__overlay">
+                                <a href="{{ project.get_absolute_url }}"
+                                   class="recent-work-card__open"
+                                   aria-label="View {{ project.name }}">
+                                <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                                </a>
+                            </div>
+
+                            <!-- Client -->
+                            {% if project.client_name %}
+                                <div class="recent-work-card__client">
+                                    <i class="fa-regular fa-building"></i>
+                                    {{ project.client_name }}
+                                </div>
+                            {% endif %}
+
+                        </div>
+
+
+                        <!-- Content -->
+                        <div class="recent-work-card__content">
+
+                            {% if project.category %}
+                                <span class="recent-work-card__category">
+                                    {{ project.category }}
+                                </span>
+                            {% endif %}
+
+                            <h3 class="recent-work-card__title">
+                                <a href="{{ project.get_absolute_url }}">
+                                    {{ project.name }}
+                                </a>
+                            </h3>
+
+                            {% if project.short_description %}
+                                <p class="recent-work-card__description">
+                                    {{ project.short_description }}
+                                </p>
+                            {% endif %}
+
+                            <a href="{{ project.get_absolute_url }}"
+                               class="recent-work-card__link">
+                                View Project
+                                <i class="fa-solid fa-arrow-right"></i>
+                            </a>
+
+                        </div>
+
+                    </article>
+
+                </div>
+
+            {% endfor %}
+
+        </div>
+
+    </div>
+</section>
+{% endif %}

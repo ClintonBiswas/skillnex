@@ -1,0 +1,579 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+
+{% block title %}
+    {{ service_details.name }} | Skillnex IT Academy
+{% endblock title %}
+
+
+{% block meta_description %}
+    {{ service_details.short_description }}
+{% endblock meta_description %}
+
+
+{% block extra_css %}
+{% endblock extra_css %}
+
+
+{% block content %}
+
+    <!-- =====================================================
+         SERVICE HERO
+         ===================================================== -->
+
+    <section class="service-detail-hero">
+
+        <div class="container">
+
+            <div class="row align-items-center g-5">
+
+                <!-- Content -->
+
+                <div class="col-12 col-lg-6">
+
+                    <div class="service-detail-hero__content">
+
+                        <a
+                            href="{% url 'skillnex:service' %}"
+                            class="service-detail-hero__back"
+                        >
+                            <i class="fa-solid fa-arrow-left"></i>
+                            <span>All Services</span>
+                        </a>
+
+
+                        {% if service_details.icon %}
+
+                            <div class="service-detail-hero__icon">
+                                <i class="{{ service_details.icon }}"></i>
+                            </div>
+
+                        {% endif %}
+
+
+                        <span class="service-detail-hero__eyebrow">
+                            Our Service
+                        </span>
+
+
+                        <h1 class="service-detail-hero__title">
+                            {{ service_details.name }}
+                        </h1>
+
+
+                        <p class="service-detail-hero__description">
+                            {{ service_details.short_description }}
+                        </p>
+
+
+                        <div class="service-detail-hero__actions">
+
+                            <a
+                                href="{% url 'skillnex:contact' %}"
+                                class="btn-brand"
+                            >
+                                <span>Start a Project</span>
+                                <i class="fa-solid fa-arrow-right"></i>
+                            </a>
+
+                            <a
+                                href="#service-offerings"
+                                class="service-detail-hero__secondary-btn"
+                            >
+                                <span>Explore Service</span>
+                                <i class="fa-solid fa-arrow-down"></i>
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Image -->
+
+                <div class="col-12 col-lg-6">
+
+                    <div class="service-detail-hero__image-wrapper">
+
+                        <div class="service-detail-hero__image-decoration"></div>
+
+                        {% if service_details.image %}
+
+                            <img
+                                src="{{ service_details.image.url }}"
+                                alt="{{ service_details.name }}"
+                                class="service-detail-hero__image"
+                            >
+
+                        {% else %}
+
+                            <img
+                                src="{% static 'images/services/default-service.jpg' %}"
+                                alt="Skillnex IT Academy digital services"
+                                class="service-detail-hero__image"
+                            >
+
+                        {% endif %}
+
+
+                        <div class="service-detail-hero__image-badge">
+
+                            {% if service_details.icon %}
+                                <i class="{{ service_details.icon }}"></i>
+                            {% endif %}
+
+                            <span>
+                                Professional Solution
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         MAIN DESCRIPTION
+         ===================================================== -->
+
+    <section
+        class="section service-detail-intro"
+        id="service-offerings"
+    >
+
+        <div class="container">
+
+            <div class="row justify-content-center">
+
+                <div class="col-12 col-lg-9">
+
+                    <div class="service-detail-intro__content">
+
+                        <span class="service-detail-section__eyebrow">
+                            About This Service
+                        </span>
+
+                        <h2>
+                            Built Around Your
+                            <span>Business Goals</span>
+                        </h2>
+
+
+                        {% if service_details.description %}
+
+                            <p>
+                                {{ service_details.description }}
+                            </p>
+
+                        {% else %}
+
+                            <p>
+                                We provide professional solutions tailored
+                                to your business requirements and digital
+                                goals.
+                            </p>
+
+                        {% endif %}
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         FEATURES
+         ===================================================== -->
+
+    {% if service_details.features.all %}
+
+        <section class="section service-features">
+
+            <div class="container">
+
+                <div class="row justify-content-center mb-5">
+
+                    <div class="col-12 col-lg-8 text-center">
+
+                        <span class="service-detail-section__eyebrow">
+                            What We Offer
+                        </span>
+
+                        <h2>
+                            Everything You Need
+                            <span>to Get Started</span>
+                        </h2>
+
+                        <p>
+                            Our service is designed to cover the essential
+                            requirements needed to create a strong and
+                            effective digital solution.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="row g-4">
+
+                    {% for feature in service_details.features.all %}
+
+                        <div class="col-12 col-md-6 col-lg-4">
+
+                            <article class="service-feature-card">
+
+                                <div class="service-feature-card__top">
+
+                                    <span class="service-feature-card__number">
+                                        {% if forloop.counter < 10 %}
+                                            0{{ forloop.counter }}
+                                        {% else %}
+                                            {{ forloop.counter }}
+                                        {% endif %}
+                                    </span>
+
+
+                                    {% if feature.icon %}
+
+                                        <div class="service-feature-card__icon">
+                                            <i class="{{ feature.icon }}"></i>
+                                        </div>
+
+                                    {% endif %}
+
+                                </div>
+
+
+                                <h3>
+                                    {{ feature.title }}
+                                </h3>
+
+
+                                {% if feature.description %}
+
+                                    <p>
+                                        {{ feature.description }}
+                                    </p>
+
+                                {% endif %}
+
+                            </article>
+
+                        </div>
+
+                    {% endfor %}
+
+                </div>
+
+            </div>
+
+        </section>
+
+    {% endif %}
+
+
+    <!-- =====================================================
+         HIGHLIGHTS
+         ===================================================== -->
+
+    {% if service_details.highlights.all %}
+
+        <section class="section service-highlights">
+
+            <div class="container">
+
+                <div class="row align-items-center g-5">
+
+                    <div class="col-12 col-lg-5">
+
+                        <div class="service-highlights__content">
+
+                            <span class="service-detail-section__eyebrow">
+                                Why Choose This Service
+                            </span>
+
+                            <h2>
+                                Designed to Deliver
+                                <span>Real Value</span>
+                            </h2>
+
+                            <p>
+                                We focus on quality, usability, performance,
+                                and long-term value so your digital solution
+                                can support your business as it grows.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="col-12 col-lg-7">
+
+                        <div class="service-highlights__list">
+
+                            {% for highlight in service_details.highlights.all %}
+
+                                <div class="service-highlight">
+
+                                    {% if highlight.icon %}
+
+                                        <div class="service-highlight__icon">
+                                            <i class="{{ highlight.icon }}"></i>
+                                        </div>
+
+                                    {% endif %}
+
+
+                                    <div class="service-highlight__content">
+
+                                        <h3>
+                                            {{ highlight.title }}
+                                        </h3>
+
+                                        {% if highlight.short_text %}
+
+                                            <p>
+                                                {{ highlight.short_text }}
+                                            </p>
+
+                                        {% endif %}
+
+                                    </div>
+
+                                    <i class="fa-solid fa-arrow-up-right-from-square service-highlight__arrow"></i>
+
+                                </div>
+
+                            {% endfor %}
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    {% endif %}
+
+
+    <!-- =====================================================
+         PROCESS
+         ===================================================== -->
+
+    <section class="section service-process">
+
+        <div class="container">
+
+            <div class="row justify-content-center mb-5">
+
+                <div class="col-12 col-lg-8 text-center">
+
+                    <span class="service-detail-section__eyebrow">
+                        How We Work
+                    </span>
+
+                    <h2>
+                        A Simple Process.
+                        <span>Better Results.</span>
+                    </h2>
+
+                    <p>
+                        We follow a clear and collaborative process to turn
+                        your requirements into a professional digital solution.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="row g-4">
+
+                <div class="col-12 col-md-6 col-lg-3">
+
+                    <div class="service-process-card">
+
+                        <span class="service-process-card__number">
+                            01
+                        </span>
+
+                        <div class="service-process-card__icon">
+                            <i class="fa-solid fa-comments"></i>
+                        </div>
+
+                        <h3>
+                            Discover
+                        </h3>
+
+                        <p>
+                            We understand your business, goals, audience,
+                            and requirements.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="col-12 col-md-6 col-lg-3">
+
+                    <div class="service-process-card">
+
+                        <span class="service-process-card__number">
+                            02
+                        </span>
+
+                        <div class="service-process-card__icon">
+                            <i class="fa-solid fa-compass-drafting"></i>
+                        </div>
+
+                        <h3>
+                            Plan
+                        </h3>
+
+                        <p>
+                            We create a clear strategy and structure for
+                            your project.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="col-12 col-md-6 col-lg-3">
+
+                    <div class="service-process-card">
+
+                        <span class="service-process-card__number">
+                            03
+                        </span>
+
+                        <div class="service-process-card__icon">
+                            <i class="fa-solid fa-code"></i>
+                        </div>
+
+                        <h3>
+                            Build
+                        </h3>
+
+                        <p>
+                            We develop and refine the solution with
+                            quality and usability in mind.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="col-12 col-md-6 col-lg-3">
+
+                    <div class="service-process-card">
+
+                        <span class="service-process-card__number">
+                            04
+                        </span>
+
+                        <div class="service-process-card__icon">
+                            <i class="fa-solid fa-rocket"></i>
+                        </div>
+
+                        <h3>
+                            Launch
+                        </h3>
+
+                        <p>
+                            After testing and final improvements,
+                            your solution is ready to go live.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         CTA
+         ===================================================== -->
+
+    <section class="service-detail-cta">
+
+        <div class="container">
+
+            <div class="service-detail-cta__box">
+
+                <div class="row align-items-center g-4">
+
+                    <div class="col-12 col-lg-8">
+
+                        <span class="service-detail-cta__eyebrow">
+                            Ready to Get Started?
+                        </span>
+
+                        <h2>
+                            Let's Turn Your Idea
+                            <span>Into Reality.</span>
+                        </h2>
+
+                        <p>
+                            Tell us about your project and let's discuss
+                            how we can build the right solution for your
+                            business.
+                        </p>
+
+                    </div>
+
+
+                    <div class="col-12 col-lg-4 text-lg-end">
+
+                        <a
+                            href="{% url 'skillnex:contact' %}"
+                            class="service-detail-cta__button"
+                        >
+                            <span>Start Your Project</span>
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+{% endblock content %}
+
+
+{% block extra_js %}
+{% endblock extra_js %}

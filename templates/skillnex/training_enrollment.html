@@ -1,0 +1,365 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Enroll in {{ course.name }} | Skillnex IT Academy
+{% endblock %}
+
+{% block meta_description %}
+    Enroll in {{ course.name }} at Skillnex IT Academy.
+{% endblock %}
+
+{% block content %}
+
+<section class="section bg-blue">
+    <div class="container">
+
+        <!-- Page Header -->
+        <div class="row justify-content-center mb-5">
+            <div class="col-12 col-lg-8 text-center">
+
+                <span class="text-primary fw-semibold">
+                    Course Enrollment
+                </span>
+
+                <h1 class="mt-2 mb-3">
+                    Enroll in {{ course.name }}
+                </h1>
+
+                <p class="text-muted-custom mb-0">
+                    Complete the form below and our team will contact
+                    you regarding your enrollment.
+                </p>
+
+            </div>
+        </div>
+
+
+        <div class="row justify-content-center g-4">
+
+            <!-- Enrollment Form -->
+            <div class="col-12 col-lg-7">
+
+                <div class="card-modern p-4 p-lg-5">
+
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class="alert alert-{{ message.tags }}">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+
+
+                    <form method="post"
+                          action="{% url 'skillnex:training_enrollment' course.slug %}"
+                          novalidate>
+
+                        {% csrf_token %}
+
+
+                        <!-- Name -->
+                        <div class="mb-4">
+
+                            <label for="name"
+                                   class="form-label fw-semibold">
+                                Full Name
+                                <span class="text-danger">*</span>
+                            </label>
+
+                            <input
+                                type="text"
+                                class="form-control"
+                                id="name"
+                                name="name"
+                                placeholder="Enter your full name"
+                                value="{{ request.POST.name|default:'' }}"
+                                required
+                            >
+
+                        </div>
+
+
+                        <!-- Phone -->
+                        <div class="mb-4">
+
+                            <label for="phone"
+                                   class="form-label fw-semibold">
+                                Phone / WhatsApp
+                                <span class="text-danger">*</span>
+                            </label>
+
+                            <input
+                                type="tel"
+                                class="form-control"
+                                id="phone"
+                                name="phone"
+                                placeholder="01XXXXXXXXX"
+                                value="{{ request.POST.phone|default:'' }}"
+                                required
+                            >
+
+                        </div>
+
+
+                        <!-- Email -->
+                        <div class="mb-4">
+
+                            <label for="email"
+                                   class="form-label fw-semibold">
+                                Email Address
+                                <span class="text-muted-custom">
+                                    (Optional)
+                                </span>
+                            </label>
+
+                            <input
+                                type="email"
+                                class="form-control"
+                                id="email"
+                                name="email"
+                                placeholder="you@example.com"
+                                value="{{ request.POST.email|default:'' }}"
+                            >
+
+                        </div>
+
+
+                        <!-- Course -->
+                        <div class="mb-4">
+
+                            <label class="form-label fw-semibold">
+                                Selected Course
+                            </label>
+
+                            <div class="form-control bg-light">
+                                {{ course.name }}
+                            </div>
+
+                            <div class="form-text">
+                                Your enrollment will be submitted
+                                for this course.
+                            </div>
+
+                        </div>
+
+
+                        <!-- Batch -->
+                        {% if batches %}
+
+                            <div class="mb-4">
+
+                                <label for="batch"
+                                       class="form-label fw-semibold">
+                                    Select Batch
+                                </label>
+
+                                <select
+                                    class="form-select"
+                                    id="batch"
+                                    name="batch"
+                                >
+
+                                    <option value="">
+                                        Select a batch
+                                    </option>
+
+                                    {% for batch in batches %}
+
+                                        <option
+                                            value="{{ batch.id }}"
+                                            {% if request.POST.batch == batch.id|stringformat:"s" %}
+                                                selected
+                                            {% endif %}
+                                        >
+
+                                            {{ batch.name }}
+
+                                            {% if batch.start_date %}
+                                                — Starts
+                                                {{ batch.start_date|date:"d M Y" }}
+                                            {% endif %}
+
+                                        </option>
+
+                                    {% endfor %}
+
+                                </select>
+
+                            </div>
+
+                        {% endif %}
+
+
+                        <!-- Payment -->
+                        <div class="mb-4">
+
+                            <label class="form-label fw-semibold">
+                                Payment Method
+                            </label>
+
+                            <div class="border rounded p-3 bg-light">
+
+                                <div class="d-flex align-items-center gap-2">
+
+                                    <i class="fa-solid fa-money-bill-wave text-primary"></i>
+
+                                    <span>
+                                        Offline Payment
+                                    </span>
+
+                                </div>
+
+                                <small class="text-muted-custom d-block mt-2">
+                                    Our team will contact you with
+                                    payment instructions.
+                                </small>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- Message -->
+                        <div class="mb-4">
+
+                            <label for="message"
+                                   class="form-label fw-semibold">
+                                Message
+                                <span class="text-muted-custom">
+                                    (Optional)
+                                </span>
+                            </label>
+
+                            <textarea
+                                class="form-control"
+                                id="message"
+                                name="message"
+                                rows="4"
+                                placeholder="Anything you would like us to know?"
+                            >{{ request.POST.message|default:'' }}</textarea>
+
+                        </div>
+
+
+                        <!-- Submit -->
+                        <div class="d-grid">
+
+                            <button
+                                type="submit"
+                                class="btn btn-brand btn-lg"
+                            >
+                                Submit Enrollment
+                                <i class="fa-solid fa-arrow-right ms-2"></i>
+                            </button>
+
+                        </div>
+
+
+                        <p class="text-muted-custom small text-center mt-3 mb-0">
+                            By submitting this form, you are requesting
+                            enrollment in this course. Our team will
+                            contact you shortly.
+                        </p>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+
+            <!-- Course Summary -->
+            <div class="col-12 col-lg-4">
+
+                <div class="card-modern p-4 sticky-lg-top"
+                     style="top: 100px;">
+
+                    {% if course.image %}
+
+                        <img
+                            src="{{ course.image.url }}"
+                            alt="{{ course.name }}"
+                            class="img-fluid rounded mb-4"
+                        >
+
+                    {% else %}
+
+                        <div class="d-flex align-items-center justify-content-center
+                                    bg-secondary rounded mb-4"
+                             style="height: 180px;">
+
+                            <i class="{{ course.icon|default:'fa-solid fa-graduation-cap' }}
+                                      fa-3x text-primary"></i>
+
+                        </div>
+
+                    {% endif %}
+
+
+                    <span class="badge bg-secondary text-dark mb-3">
+                        {{ course.get_level_display }}
+                    </span>
+
+
+                    <h3 class="h4 mb-3">
+                        {{ course.name }}
+                    </h3>
+
+
+                    <p class="text-muted-custom mb-4">
+                        {{ course.short_description }}
+                    </p>
+
+
+                    <div class="border-top pt-3">
+
+                        {% if course.duration %}
+                            <div class="d-flex justify-content-between mb-3">
+                                <span class="text-muted-custom">
+                                    Duration
+                                </span>
+
+                                <strong>
+                                    {{ course.duration }}
+                                </strong>
+                            </div>
+                        {% endif %}
+
+
+                        {% if course.total_classes %}
+                            <div class="d-flex justify-content-between mb-3">
+                                <span class="text-muted-custom">
+                                    Classes
+                                </span>
+
+                                <strong>
+                                    {{ course.total_classes }}
+                                </strong>
+                            </div>
+                        {% endif %}
+
+
+                        {% if course.price %}
+                            <div class="d-flex justify-content-between">
+                                <span class="text-muted-custom">
+                                    Course Fee
+                                </span>
+
+                                <strong class="text-primary">
+                                    ৳{{ course.price|floatformat:0 }}
+                                </strong>
+                            </div>
+                        {% endif %}
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+{% endblock %}

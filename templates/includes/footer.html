@@ -1,0 +1,323 @@
+{% load static %}
+
+<footer class="site-footer">
+
+    <!-- =====================================================
+         MAIN FOOTER
+         ====================================================== -->
+
+    <div class="container">
+
+        <div class="row g-4 g-lg-5">
+
+
+            <!-- =================================================
+                 COLUMN 1 — COMPANY
+                 ================================================== -->
+
+            <div class="col-12 col-md-6 col-lg-3">
+
+                <div class="site-footer__company">
+                    {% if site_settings and site_settings.logo %}
+                    <a
+                        href="{% url 'skillnex:home' %}"
+                        class="site-footer__logo-link"
+                        aria-label="Skillnex IT Academy"
+                    >
+                        <img
+                            src="{{ site_settings.logo.url }}"
+                            alt="{{site_settings.company_name}}"
+                            class="site-footer__logo"
+                        >
+                    </a>
+                    {% endif %}
+
+                    <p class="site-footer__headline">
+                        Learn. Build. Grow.
+                    </p>
+
+                    <p class="site-footer__description">
+                        {{site_settings.short_description}}
+                    </p>
+
+
+                    <!-- Social Media -->
+
+                    <div class="site-footer__social">
+
+                        <a
+                            href="{{site_settings.facebook_url}}"
+                            class="site-footer__social-link"
+                            aria-label="Facebook"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            <i class="fa-brands fa-facebook-f"></i>
+                        </a>
+
+                        <a
+                            href="{{site_settings.instagram_url}}"
+                            class="site-footer__social-link"
+                            aria-label="Instagram"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            <i class="fa-brands fa-instagram"></i>
+                        </a>
+
+                        <a
+                            href="{{site_settings.linkedin_url}}"
+                            class="site-footer__social-link"
+                            aria-label="LinkedIn"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            <i class="fa-brands fa-linkedin-in"></i>
+                        </a>
+
+                        <a
+                            href="{{site_settings.youtube_url}}"
+                            class="site-footer__social-link"
+                            aria-label="YouTube"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            <i class="fa-brands fa-youtube"></i>
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 COLUMN 2 — TRAINING
+                 ================================================== -->
+
+            <div class="col-6 col-lg-3">
+
+                <div class="site-footer__column">
+
+                    <h5 class="site-footer__title">
+                        Training
+                    </h5>
+
+                    <ul class="site-footer__links">
+
+                        <li>
+                            <a href="{% url 'skillnex:training' %}">
+                                <span class="site-footer__arrow">›</span>
+                                Graphic Design
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="{% url 'skillnex:training' %}">
+                                <span class="site-footer__arrow">›</span>
+                                Web Design
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="{% url 'skillnex:training' %}">
+                                <span class="site-footer__arrow">›</span>
+                                Digital Marketing
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="{% url 'skillnex:training' %}">
+                                <span class="site-footer__arrow">›</span>
+                                Backend Development
+                            </a>
+                        </li>
+
+                    </ul>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 COLUMN 3 — SERVICES
+                 ================================================== -->
+
+            <div class="col-6 col-lg-3">
+
+                <div class="site-footer__column">
+
+                    <h5 class="site-footer__title">
+                        Services
+                    </h5>
+
+                    <ul class="site-footer__links">
+
+                        <li>
+                            <a href="{% url 'skillnex:service' %}">
+                                <span class="site-footer__arrow">›</span>
+                                Website Development
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="{% url 'skillnex:service' %}">
+                                <span class="site-footer__arrow">›</span>
+                                Graphic Design
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="{% url 'skillnex:service' %}">
+                                <span class="site-footer__arrow">›</span>
+                                Ecommerce Website Development
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="{% url 'skillnex:service' %}">
+                                <span class="site-footer__arrow">›</span>
+                                Landing Page
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="{% url 'skillnex:service' %}">
+                                <span class="site-footer__arrow">›</span>
+                                Custom Web Apps
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="{% url 'skillnex:service' %}">
+                                <span class="site-footer__arrow">›</span>
+                                Digital Marketing
+                            </a>
+                        </li>
+
+                    </ul>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 COLUMN 4 — CONTACT
+                 ================================================== -->
+
+            <div class="col-12 col-md-6 col-lg-3">
+
+                <div class="site-footer__column">
+
+                    <h5 class="site-footer__title">
+                        Contact Us
+                    </h5>
+
+
+                    <div class="site-footer__contact">
+
+
+                        <!-- Location -->
+
+                        <a
+                            href="https://www.bing.com/maps/default.aspx?v=2&pc=FACEBK&mid=8100&where1=Shibrampur%20Road%2C%20Natun%20Bazar%2C%20Magura%2C%20Magura%2C%20Bangladesh%2C%207600&FORM=FBKPL1&mkt=en-US"
+                            class="site-footer__contact-item"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            <span class="site-footer__contact-icon">
+                                <i class="fa-solid fa-location-dot"></i>
+                            </span>
+
+                            <span>
+                                {{site_settings.address}}
+                            </span>
+                        </a>
+
+
+                        <!-- Phone -->
+
+                        <a
+                            href="tel:+8801571050302"
+                            class="site-footer__contact-item"
+                        >
+                            <span class="site-footer__contact-icon">
+                                <i class="fa-solid fa-phone"></i>
+                            </span>
+
+                            <span>
+                                {{site_settings.phone}}
+                            </span>
+                        </a>
+
+
+                        <!-- WhatsApp -->
+
+                        <a
+                            href="https://wa.me/{{site_settings.whatsapp}}"
+                            class="site-footer__contact-item"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            <span class="site-footer__contact-icon">
+                                <i class="fa-brands fa-whatsapp"></i>
+                            </span>
+
+                            <span>
+                                {{site_settings.whatsapp}}
+                            </span>
+                        </a>
+
+
+                        <!-- Email -->
+
+                        <a
+                            href="mailto:info@skillnexit.com"
+                            class="site-footer__contact-item"
+                        >
+                            <span class="site-footer__contact-icon">
+                                <i class="fa-solid fa-envelope"></i>
+                            </span>
+
+                            <span>
+                                {{site_settings.email}}
+                            </span>
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         COPYRIGHT
+         ====================================================== -->
+
+    <div class="site-footer__bottom">
+
+        <div class="container">
+
+            <div class="site-footer__bottom-content">
+
+                <p class="site-footer__copyright mb-0">
+                    © <span id="currentYear"></span>
+                    <strong>Skillnex IT Academy</strong>
+                    All rights reserved.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</footer>

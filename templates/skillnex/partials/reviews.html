@@ -1,0 +1,259 @@
+{% if featured_reviews %}
+
+<section class="reviews-section section">
+
+    <div class="container">
+
+        <!-- Section Header -->
+        <div class="row justify-content-center text-center mb-5">
+
+            <div class="col-lg-8">
+
+                <span class="reviews-eyebrow">
+                    <i class="fa-solid fa-heart"></i>
+                    What People Say
+                </span>
+
+                <h2 class="reviews-title">
+                    Trusted by Students.
+                    <span>Loved by Clients.</span>
+                </h2>
+
+                <p class="reviews-description">
+                    From learning new skills to building digital solutions,
+                    see what our students and clients say about their
+                    experience with Skillnex.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- Review Slider -->
+        <div
+            id="skillnexReviews"
+            class="carousel slide reviews-slider"
+            data-bs-ride="carousel"
+            data-bs-interval="6000"
+        >
+
+            <div class="carousel-inner">
+
+                {% for review in featured_reviews %}
+
+                    <div class="carousel-item {% if forloop.first %}active{% endif %}">
+
+                        <div class="row justify-content-center">
+
+                            <div class="col-xl-9 col-lg-10">
+
+                                <article class="review-card">
+
+                                    <!-- Decorative Quote -->
+                                    <div class="review-card__quote">
+                                        <i class="fa-solid fa-quote-left"></i>
+                                    </div>
+
+
+                                    <div class="row align-items-center g-4">
+
+                                        <!-- Person -->
+                                        <div class="col-md-4">
+
+                                            <div class="review-person text-center">
+
+                                                <div class="review-person__image">
+
+                                                    {% if review.photo %}
+
+                                                        <img
+                                                            src="{{ review.photo.url }}"
+                                                            alt="{{ review.name }}"
+                                                            loading="lazy"
+                                                        >
+
+                                                    {% else %}
+
+                                                        <span>
+                                                            {{ review.name|first|upper }}
+                                                        </span>
+
+                                                    {% endif %}
+
+                                                </div>
+
+
+                                                <h3 class="review-person__name">
+                                                    {{ review.name }}
+                                                </h3>
+
+
+                                                {% if review.designation %}
+
+                                                    <p class="review-person__designation">
+                                                        {{ review.designation }}
+                                                    </p>
+
+                                                {% endif %}
+
+
+                                                {% if review.review_type == "student" %}
+
+                                                    <span class="review-person__type">
+                                                        <i class="fa-solid fa-graduation-cap"></i>
+                                                        Student
+                                                    </span>
+
+                                                {% else %}
+
+                                                    <span class="review-person__type">
+                                                        <i class="fa-solid fa-building"></i>
+                                                        Client
+                                                    </span>
+
+                                                {% endif %}
+
+                                            </div>
+
+                                        </div>
+
+
+                                        <!-- Review -->
+                                        <div class="col-md-8">
+
+                                            <div class="review-content">
+
+                                                <!-- Rating -->
+                                                <div class="review-rating">
+
+                                                    {% for star in "12345" %}
+
+                                                        {% if forloop.counter <= review.rating %}
+
+                                                            <i class="fa-solid fa-star"></i>
+
+                                                        {% else %}
+
+                                                            <i class="fa-regular fa-star"></i>
+
+                                                        {% endif %}
+
+                                                    {% endfor %}
+
+                                                </div>
+
+
+                                                <blockquote class="review-text">
+                                                    “{{ review.review }}”
+                                                </blockquote>
+
+
+                                                {% if review.course %}
+
+                                                    <div class="review-context">
+
+                                                        <i class="fa-solid fa-graduation-cap"></i>
+
+                                                        <span>
+                                                            {{ review.course.name }}
+                                                        </span>
+
+                                                    </div>
+
+                                                {% elif review.service %}
+
+                                                    <div class="review-context">
+
+                                                        <i class="fa-solid fa-briefcase"></i>
+
+                                                        <span>
+                                                            {{ review.service.name }}
+                                                        </span>
+
+                                                    </div>
+
+                                                {% endif %}
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                </article>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+
+            <!-- Controls -->
+            {% if featured_reviews|length > 1 %}
+
+                <button
+                    class="carousel-control-prev reviews-control reviews-control--prev"
+                    type="button"
+                    data-bs-target="#skillnexReviews"
+                    data-bs-slide="prev"
+                    aria-label="Previous review"
+                >
+                    <span class="reviews-control__icon">
+                        <i class="fa-solid fa-arrow-left"></i>
+                    </span>
+                </button>
+
+
+                <button
+                    class="carousel-control-next reviews-control reviews-control--next"
+                    type="button"
+                    data-bs-target="#skillnexReviews"
+                    data-bs-slide="next"
+                    aria-label="Next review"
+                >
+                    <span class="reviews-control__icon">
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </span>
+                </button>
+
+            {% endif %}
+
+
+            <!-- Indicators -->
+            {% if featured_reviews|length > 1 %}
+
+                <div class="carousel-indicators reviews-indicators">
+
+                    {% for review in featured_reviews %}
+
+                        <button
+                            type="button"
+                            data-bs-target="#skillnexReviews"
+                            data-bs-slide-to="{{ forloop.counter0 }}"
+                            class="{% if forloop.first %}active{% endif %}"
+                            {% if forloop.first %}
+                                aria-current="true"
+                            {% endif %}
+                            aria-label="Review {{ forloop.counter }}"
+                        ></button>
+
+                    {% endfor %}
+
+                </div>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endif %}
+

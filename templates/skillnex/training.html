@@ -1,0 +1,932 @@
+{% extends "base.html" %}
+
+{% block title %}
+Training Programs | Skillnex IT Academy
+{% endblock title %}
+
+{% block meta_description %}
+Explore practical IT and digital skills training at Skillnex IT Academy. Learn Graphic Design, Web Design & Development, MS Office, Digital Marketing, and more.
+{% endblock meta_description %}
+
+
+{% block extra_css %}
+    <style>
+        /* =========================================
+        Training Hero
+        ========================================= */
+
+        .training-hero {
+        position: relative;
+        overflow: hidden;
+        padding: 6rem 0;
+        background:
+        linear-gradient(
+        135deg,
+        var(--color-bg-soft) 0%,
+        var(--color-white) 55%,
+        var(--color-secondary) 100%
+        );
+        }
+
+        .training-hero__eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin-bottom: 1rem;
+        color: var(--color-primary);
+        font-size: var(--font-size-sm);
+        font-weight: var(--fw-bold);
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        }
+
+        .training-hero__title {
+        max-width: 760px;
+        margin-bottom: 1.5rem;
+        font-size: clamp(2.75rem, 6vw, 4.75rem);
+        font-weight: var(--fw-extrabold);
+        line-height: 1.08;
+        letter-spacing: -0.04em;
+        }
+
+        .training-hero__title span {
+        display: block;
+        color: var(--color-primary);
+        }
+
+        .training-hero__description {
+        max-width: 680px;
+        margin-bottom: 2rem;
+        color: var(--color-text-muted);
+        font-size: var(--font-size-lg);
+        line-height: 1.8;
+        }
+
+        .training-hero__actions {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 1.25rem;
+        }
+
+        .training-hero__secondary-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        color: var(--color-heading);
+        font-size: var(--font-size-sm);
+        font-weight: var(--fw-semibold);
+        transition:
+        color var(--transition-base),
+        gap var(--transition-base);
+        }
+
+        .training-hero__secondary-link:hover {
+        color: var(--color-primary);
+        gap: 0.75rem;
+        }
+
+        .training-hero__secondary-link i {
+        font-size: 0.75rem;
+        }
+
+        .training-hero__stats {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 2rem;
+        margin-top: 3rem;
+        }
+
+        .training-hero__stat {
+        display: flex;
+        flex-direction: column;
+        gap: 0.2rem;
+        }
+
+        .training-hero__stat strong {
+        color: var(--color-heading);
+        font-size: var(--font-size-xl);
+        font-weight: var(--fw-extrabold);
+        }
+
+        .training-hero__stat span {
+        color: var(--color-text-muted);
+        font-size: var(--font-size-xs);
+        font-weight: var(--fw-medium);
+        }
+
+        .training-hero__visual {
+        position: relative;
+        min-height: 430px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        }
+
+        .training-hero__visual::before {
+        content: "";
+        position: absolute;
+        width: 320px;
+        height: 320px;
+        border-radius: 50%;
+        background-color: var(--color-secondary);
+        opacity: 0.8;
+        }
+
+        .training-hero__visual-card {
+        position: relative;
+        z-index: 2;
+        width: min(100%, 350px);
+        padding: 2.5rem;
+        border: 1px solid rgba(229, 231, 235, 0.8);
+        border-radius: var(--radius-xl);
+        background-color: var(--color-white);
+        box-shadow: var(--shadow-lg);
+        }
+
+        .training-hero__visual-icon {
+        width: 4rem;
+        height: 4rem;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 1.5rem;
+        border-radius: var(--radius-lg);
+        background-color: var(--color-secondary);
+        color: var(--color-primary);
+        font-size: 1.5rem;
+        }
+
+        .training-hero__visual-label {
+        display: block;
+        margin-bottom: 0.5rem;
+        color: var(--color-primary);
+        font-size: var(--font-size-sm);
+        font-weight: var(--fw-semibold);
+        }
+
+        .training-hero__visual-card h2 {
+        margin-bottom: 1rem;
+        font-size: var(--font-size-3xl);
+        font-weight: var(--fw-extrabold);
+        }
+
+        .training-hero__visual-card p {
+        margin-bottom: 0;
+        color: var(--color-text-muted);
+        }
+
+        .training-hero__floating-card {
+        position: absolute;
+        z-index: 3;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.625rem;
+        padding: 0.875rem 1rem;
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius-md);
+        background-color: var(--color-white);
+        box-shadow: var(--shadow-md);
+        color: var(--color-heading);
+        font-size: var(--font-size-xs);
+        font-weight: var(--fw-semibold);
+        }
+
+        .training-hero__floating-card i {
+        color: var(--color-primary);
+        }
+
+        .training-hero__floating-card--top {
+        top: 8%;
+        right: 0;
+        }
+
+        .training-hero__floating-card--bottom {
+        bottom: 8%;
+        left: 0;
+        }
+
+        /* =========================================
+        Training Process
+        ========================================= */
+
+        .training-process-card {
+        position: relative;
+        height: 100%;
+        padding: 2rem;
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius-xl);
+        background-color: var(--color-white);
+        box-shadow: var(--shadow-sm);
+        transition:
+        transform var(--transition-base),
+        box-shadow var(--transition-base),
+        border-color var(--transition-base);
+        }
+
+        .training-process-card:hover {
+        transform: translateY(-5px);
+        border-color: var(--color-primary-light);
+        box-shadow: var(--shadow-md);
+        }
+
+        .training-process-card__number {
+        position: absolute;
+        top: 1.5rem;
+        right: 1.5rem;
+        color: var(--color-border);
+        font-size: var(--font-size-sm);
+        font-weight: var(--fw-bold);
+        }
+
+        .training-process-card__icon {
+        width: 3.5rem;
+        height: 3.5rem;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 1.5rem;
+        border-radius: var(--radius-lg);
+        background-color: var(--color-secondary);
+        color: var(--color-primary);
+        font-size: 1.25rem;
+        }
+
+        .training-process-card h3 {
+        margin-bottom: 0.75rem;
+        font-size: var(--font-size-xl);
+        }
+
+        .training-process-card p {
+        margin-bottom: 0;
+        color: var(--color-text-muted);
+        font-size: var(--font-size-sm);
+        line-height: 1.7;
+        }
+
+        /* =========================================
+        Training Benefits
+        ========================================= */
+
+        .training-benefit {
+        display: flex;
+        align-items: flex-start;
+        gap: 1rem;
+        height: 100%;
+        padding: 1.5rem;
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius-lg);
+        background-color: var(--color-white);
+        transition:
+        border-color var(--transition-base),
+        box-shadow var(--transition-base);
+        }
+
+        .training-benefit:hover {
+        border-color: var(--color-primary-light);
+        box-shadow: var(--shadow-sm);
+        }
+
+        .training-benefit__icon {
+        flex-shrink: 0;
+        width: 2.75rem;
+        height: 2.75rem;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: var(--radius-md);
+        background-color: var(--color-secondary);
+        color: var(--color-primary);
+        }
+
+        .training-benefit h3 {
+        margin-bottom: 0.5rem;
+        font-size: var(--font-size-lg);
+        }
+
+        .training-benefit p {
+        margin-bottom: 0;
+        color: var(--color-text-muted);
+        font-size: var(--font-size-sm);
+        line-height: 1.7;
+        }
+
+        /* =========================================
+        Training CTA
+        ========================================= */
+
+        .training-cta {
+        padding-top: 4rem;
+        padding-bottom: 5rem;
+        }
+
+        .training-cta__inner {
+        position: relative;
+        overflow: hidden;
+        padding: 3.5rem;
+        border-radius: var(--radius-xl);
+        background-color: var(--color-heading);
+        }
+
+        .training-cta__inner::after {
+        content: "";
+        position: absolute;
+        top: -120px;
+        right: -80px;
+        width: 280px;
+        height: 280px;
+        border-radius: 50%;
+        background-color: var(--color-primary);
+        opacity: 0.12;
+        }
+
+        .training-cta__eyebrow {
+        display: inline-block;
+        margin-bottom: 0.75rem;
+        color: var(--color-primary-light);
+        font-size: var(--font-size-sm);
+        font-weight: var(--fw-semibold);
+        }
+
+        .training-cta__title {
+        position: relative;
+        z-index: 1;
+        max-width: 700px;
+        margin-bottom: 1rem;
+        color: var(--color-white);
+        font-size: clamp(1.875rem, 4vw, 2.75rem);
+        font-weight: var(--fw-extrabold);
+        }
+
+        .training-cta__description {
+        position: relative;
+        z-index: 1;
+        max-width: 700px;
+        color: rgba(255, 255, 255, 0.72);
+        }
+
+        .training-cta__button {
+        position: relative;
+        z-index: 2;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.625rem;
+        padding: 0.875rem 1.5rem;
+        border: 1px solid var(--color-primary);
+        border-radius: var(--radius-md);
+        background-color: var(--color-primary);
+        color: var(--color-white);
+        font-size: var(--font-size-sm);
+        font-weight: var(--fw-semibold);
+        transition:
+        background-color var(--transition-base),
+        border-color var(--transition-base),
+        transform var(--transition-base);
+        }
+
+        .training-cta__button:hover {
+        background-color: var(--color-primary-dark);
+        border-color: var(--color-primary-dark);
+        color: var(--color-white);
+        transform: translateY(-2px);
+        }
+
+    </style>
+{% endblock extra_css %}
+    
+
+{% block content %}
+
+<!-- ================================
+     Training Hero
+================================= -->
+
+<section class="training-hero">
+
+    <div class="container">
+
+        <div class="row align-items-center g-5">
+
+            <div class="col-12 col-lg-7">
+
+                <span class="training-hero__eyebrow">
+                    Learn With Skillnex
+                </span>
+
+                <h1 class="training-hero__title">
+                    Build Skills.
+                    <span>Build Your Future.</span>
+                </h1>
+
+                <p class="training-hero__description">
+                    Learn practical digital skills through hands-on
+                    training designed to help you build confidence,
+                    work on real-world projects, and prepare for
+                    future opportunities.
+                </p>
+
+                <div class="training-hero__actions">
+
+                    <a
+                        href="#training-programs"
+                        class="btn-brand"
+                    >
+                        Explore Training
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+
+                    <a
+                        href="#why-skillnex"
+                        class="training-hero__secondary-link"
+                    >
+                        Why Skillnex?
+                        <i class="fa-solid fa-arrow-down"></i>
+                    </a>
+
+                </div>
+
+                <div class="training-hero__stats">
+
+                    <div class="training-hero__stat">
+
+                        <strong>
+                            100%
+                        </strong>
+
+                        <span>
+                            Practical Learning
+                        </span>
+
+                    </div>
+
+                    <div class="training-hero__stat">
+
+                        <strong>
+                            4+
+                        </strong>
+
+                        <span>
+                            Training Categories
+                        </span>
+
+                    </div>
+
+                    <div class="training-hero__stat">
+
+                        <strong>
+                            Real
+                        </strong>
+
+                        <span>
+                            Project Practice
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-12 col-lg-5">
+
+                <div class="training-hero__visual">
+
+                    <div class="training-hero__visual-card">
+
+                        <div class="training-hero__visual-icon">
+                            <i class="fa-solid fa-graduation-cap"></i>
+                        </div>
+
+                        <span class="training-hero__visual-label">
+                            Start Learning
+                        </span>
+
+                        <h2>
+                            Turn Knowledge
+                            Into Skills.
+                        </h2>
+
+                        <p>
+                            Learn, practice and build with
+                            practical technology training.
+                        </p>
+
+                    </div>
+
+                    <div class="training-hero__floating-card training-hero__floating-card--top">
+                        <i class="fa-solid fa-code"></i>
+                        <span>Web Development</span>
+                    </div>
+
+                    <div class="training-hero__floating-card training-hero__floating-card--bottom">
+                        <i class="fa-solid fa-pen-nib"></i>
+                        <span>Creative Design</span>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================================
+     Training Programs
+================================= -->
+
+<section
+    id="training-programs"
+    class="section bg-blue"
+>
+
+    <div class="container">
+
+        <div class="row justify-content-center text-center mb-5">
+
+            <div class="col-12 col-lg-8">
+
+                <span class="text-primary fw-semibold">
+                    Our Training Programs
+                </span>
+
+                <h2 class="mt-2 mb-3">
+                    Learn Skills That Move You Forward
+                </h2>
+
+                <p class="text-muted-custom mb-0">
+                    Choose a training category and start building
+                    practical skills that you can use for education,
+                    career, freelancing, business, and everyday work.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        {% include "skillnex/partials/training_category_list.html" %}
+
+    </div>
+
+</section>
+{% include "skillnex/partials/training_instructors.html" %}
+
+<!-- ================================
+     Learning Process
+================================= -->
+
+<section class="section">
+
+    <div class="container">
+
+        <div class="row align-items-end g-4 mb-5">
+
+            <div class="col-12 col-lg-7">
+
+                <span class="text-primary fw-semibold">
+                    Our Learning Approach
+                </span>
+
+                <h2 class="mt-2 mb-3">
+                    Learn. Practice. Build. Grow.
+                </h2>
+
+                <p class="text-muted-custom mb-0">
+                    Our training approach focuses on practical
+                    learning rather than simply memorizing
+                    concepts. Each step is designed to move
+                    you closer to real-world application.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="row g-4">
+
+            <div class="col-12 col-md-6 col-lg-3">
+
+                <article class="training-process-card">
+
+                    <span class="training-process-card__number">
+                        01
+                    </span>
+
+                    <div class="training-process-card__icon">
+                        <i class="fa-solid fa-book-open"></i>
+                    </div>
+
+                    <h3>
+                        Learn
+                    </h3>
+
+                    <p>
+                        Understand the concepts, tools, techniques
+                        and fundamentals you need to build a strong
+                        foundation.
+                    </p>
+
+                </article>
+
+            </div>
+
+
+            <div class="col-12 col-md-6 col-lg-3">
+
+                <article class="training-process-card">
+
+                    <span class="training-process-card__number">
+                        02
+                    </span>
+
+                    <div class="training-process-card__icon">
+                        <i class="fa-solid fa-laptop-code"></i>
+                    </div>
+
+                    <h3>
+                        Practice
+                    </h3>
+
+                    <p>
+                        Apply what you learn through exercises,
+                        practical tasks and guided hands-on
+                        activities.
+                    </p>
+
+                </article>
+
+            </div>
+
+
+            <div class="col-12 col-md-6 col-lg-3">
+
+                <article class="training-process-card">
+
+                    <span class="training-process-card__number">
+                        03
+                    </span>
+
+                    <div class="training-process-card__icon">
+                        <i class="fa-solid fa-cubes"></i>
+                    </div>
+
+                    <h3>
+                        Build
+                    </h3>
+
+                    <p>
+                        Work on practical projects that help you
+                        turn your knowledge into useful, real-world
+                        skills.
+                    </p>
+
+                </article>
+
+            </div>
+
+
+            <div class="col-12 col-md-6 col-lg-3">
+
+                <article class="training-process-card">
+
+                    <span class="training-process-card__number">
+                        04
+                    </span>
+
+                    <div class="training-process-card__icon">
+                        <i class="fa-solid fa-arrow-trend-up"></i>
+                    </div>
+
+                    <h3>
+                        Grow
+                    </h3>
+
+                    <p>
+                        Use your skills to prepare for career,
+                        freelancing, business and future learning
+                        opportunities.
+                    </p>
+
+                </article>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================================
+     Why Skillnex
+================================= -->
+
+<section
+    id="why-skillnex"
+    class="section bg-soft"
+>
+
+    <div class="container">
+
+        <div class="row align-items-center g-5">
+
+            <div class="col-12 col-lg-5">
+
+                <span class="text-primary fw-semibold">
+                    Why Learn With Skillnex?
+                </span>
+
+                <h2 class="mt-2 mb-3">
+                    More Than Just a Training Center
+                </h2>
+
+                <p class="text-muted-custom mb-0">
+                    We focus on helping learners understand
+                    technology, practice their skills and apply
+                    what they learn to real-world situations.
+                </p>
+
+            </div>
+
+
+            <div class="col-12 col-lg-7">
+
+                <div class="row g-4">
+
+                    <div class="col-12 col-md-6">
+
+                        <article class="training-benefit">
+
+                            <div class="training-benefit__icon">
+                                <i class="fa-solid fa-laptop-code"></i>
+                            </div>
+
+                            <div>
+
+                                <h3>
+                                    Practical Training
+                                </h3>
+
+                                <p>
+                                    Focus on hands-on learning,
+                                    exercises and practical tasks
+                                    instead of theory alone.
+                                </p>
+
+                            </div>
+
+                        </article>
+
+                    </div>
+
+
+                    <div class="col-12 col-md-6">
+
+                        <article class="training-benefit">
+
+                            <div class="training-benefit__icon">
+                                <i class="fa-solid fa-briefcase"></i>
+                            </div>
+
+                            <div>
+
+                                <h3>
+                                    Real-World Skills
+                                </h3>
+
+                                <p>
+                                    Learn skills that can be applied
+                                    to real projects, work and
+                                    professional activities.
+                                </p>
+
+                            </div>
+
+                        </article>
+
+                    </div>
+
+
+                    <div class="col-12 col-md-6">
+
+                        <article class="training-benefit">
+
+                            <div class="training-benefit__icon">
+                                <i class="fa-solid fa-user-graduate"></i>
+                            </div>
+
+                            <div>
+
+                                <h3>
+                                    Beginner Friendly
+                                </h3>
+
+                                <p>
+                                    Build your foundation step by
+                                    step and progress toward more
+                                    advanced skills.
+                                </p>
+
+                            </div>
+
+                        </article>
+
+                    </div>
+
+
+                    <div class="col-12 col-md-6">
+
+                        <article class="training-benefit">
+
+                            <div class="training-benefit__icon">
+                                <i class="fa-solid fa-rocket"></i>
+                            </div>
+
+                            <div>
+
+                                <h3>
+                                    Career Focused
+                                </h3>
+
+                                <p>
+                                    Develop practical skills that
+                                    can support your future career,
+                                    freelancing or business goals.
+                                </p>
+
+                            </div>
+
+                        </article>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================================
+     Training CTA
+================================= -->
+
+<section class="section training-cta">
+
+    <div class="container">
+
+        <div class="training-cta__inner">
+
+            <div class="row align-items-center g-4">
+
+                <div class="col-12 col-lg-8">
+
+                    <span class="training-cta__eyebrow">
+                        Ready to Start?
+                    </span>
+
+                    <h2 class="training-cta__title">
+                        Start Building Your Digital Skills Today
+                    </h2>
+
+                    <p class="training-cta__description mb-0">
+                        Choose a training category, explore the
+                        available courses and take the next step
+                        toward becoming more confident with technology.
+                    </p>
+
+                </div>
+
+
+                <div class="col-12 col-lg-4 text-lg-end">
+
+                    <a
+                        href="{% url 'skillnex:contact' %}"
+                        class="training-cta__button"
+                    >
+                        <span>Get Started</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock content %}

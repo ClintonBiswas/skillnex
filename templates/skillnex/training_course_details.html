@@ -1,0 +1,740 @@
+{% extends "base.html" %}
+
+{% block title %}
+    {{ course.name }} | Skillnex IT Academy
+{% endblock title %}
+
+{% block meta_description %}
+    {{ course.short_description }} Learn practical skills with Skillnex IT Academy.
+{% endblock meta_description %}
+
+
+{% block content %}
+
+<!-- =========================================
+     COURSE HERO
+========================================= -->
+
+<section class="course-details-hero">
+
+    <div class="container">
+
+        <div class="row align-items-center g-5">
+
+            <!-- Hero Content -->
+
+            <div class="col-12 col-lg-7">
+
+                <a
+                    href="{{ course.category.get_absolute_url }}"
+                    class="course-details-hero__back"
+                >
+                    <i class="fa-solid fa-arrow-left"></i>
+                    <span>
+                        {{ course.category.name }}
+                    </span>
+                </a>
+
+                <div class="course-details-hero__eyebrow">
+
+                    {% if course.icon %}
+                        <span class="course-details-hero__icon">
+                            <i class="{{ course.icon }}"></i>
+                        </span>
+                    {% endif %}
+
+                    <span>
+                        Skillnex Training Program
+                    </span>
+
+                </div>
+
+                <h1 class="course-details-hero__title">
+                    {{ course.name }}
+                </h1>
+
+                {% if course.short_description %}
+
+                    <p class="course-details-hero__description">
+                        {{ course.short_description }}
+                    </p>
+
+                {% endif %}
+
+
+                <!-- Course Meta -->
+
+                <div class="course-details-hero__meta">
+
+                    {% if course.level %}
+
+                        <div class="course-details-hero__meta-item">
+
+                            <span class="course-details-hero__meta-icon">
+                                <i class="fa-solid fa-signal"></i>
+                            </span>
+
+                            <span>
+                                <small>Level</small>
+
+                                <strong>
+
+                                    {% if course.level == "beginner" %}
+                                        Beginner
+                                    {% elif course.level == "intermediate" %}
+                                        Intermediate
+                                    {% elif course.level == "advanced" %}
+                                        Advanced
+                                    {% endif %}
+
+                                </strong>
+
+                            </span>
+
+                        </div>
+
+                    {% endif %}
+
+
+                    {% if course.duration %}
+
+                        <div class="course-details-hero__meta-item">
+
+                            <span class="course-details-hero__meta-icon">
+                                <i class="fa-regular fa-clock"></i>
+                            </span>
+
+                            <span>
+                                <small>Duration</small>
+                                <strong>{{ course.duration }}</strong>
+                            </span>
+
+                        </div>
+
+                    {% endif %}
+
+
+                    {% if course.total_classes %}
+
+                        <div class="course-details-hero__meta-item">
+
+                            <span class="course-details-hero__meta-icon">
+                                <i class="fa-solid fa-calendar-days"></i>
+                            </span>
+
+                            <span>
+                                <small>Classes</small>
+                                <strong>{{ course.total_classes }}</strong>
+                            </span>
+
+                        </div>
+
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+
+            <!-- Hero Course Card -->
+
+            <div class="col-12 col-lg-5">
+
+                <div class="course-details-hero__card">
+
+                    <div class="course-details-hero__image-wrapper">
+
+                        {% if course.image %}
+
+                            <img
+                                src="{{ course.image.url }}"
+                                alt="{{ course.name }}"
+                                class="course-details-hero__image"
+                            >
+
+                        {% else %}
+
+                            <div class="course-details-hero__image-placeholder">
+
+                                {% if course.icon %}
+
+                                    <i class="{{ course.icon }}"></i>
+
+                                {% else %}
+
+                                    <i class="fa-solid fa-graduation-cap"></i>
+
+                                {% endif %}
+
+                            </div>
+
+                        {% endif %}
+
+                        <span class="course-details-hero__level">
+
+                            {% if course.level == "beginner" %}
+                                Beginner
+                            {% elif course.level == "intermediate" %}
+                                Intermediate
+                            {% elif course.level == "advanced" %}
+                                Advanced
+                            {% endif %}
+
+                        </span>
+
+                    </div>
+
+
+                    <div class="course-details-hero__card-body">
+
+                        {% if course.price %}
+
+                            <div class="course-details-hero__price">
+
+                                <small>Course Fee</small>
+
+                                <strong>
+                                    ৳{{ course.price|floatformat:0 }}
+                                </strong>
+
+                            </div>
+
+                        {% else %}
+
+                            <div class="course-details-hero__price">
+
+                                <small>Course Fee</small>
+
+                                <strong>
+                                    Contact Us
+                                </strong>
+
+                            </div>
+
+                        {% endif %}
+
+
+                            <a href="{% url 'skillnex:training_enrollment' course.slug %}"
+                            class="btn btn-brand">
+                                Enroll Now
+                                <i class="fa-solid fa-arrow-right ms-2"></i>
+                            </a>
+
+
+                        <p class="course-details-hero__note">
+                            Get in touch with us for batch schedule,
+                            admission details and enrollment.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================================
+     COURSE CONTENT
+========================================= -->
+
+<section class="section course-details-content">
+
+    <div class="container">
+
+        <div class="row g-5">
+
+
+            <!-- Main Content -->
+
+            <div class="col-12 col-lg-8">
+
+
+                <!-- Overview -->
+
+                <div class="course-details-block">
+
+                    <span class="course-details-block__eyebrow">
+                        Course Overview
+                    </span>
+
+                    <h2>
+                        Learn Practical Skills With Confidence
+                    </h2>
+
+                    {% if course.description %}
+
+                        <div class="course-details-block__description">
+
+                            {{ course.description|linebreaks }}
+
+                        </div>
+
+                    {% else %}
+
+                        <p>
+                            This course is designed to provide
+                            practical, hands-on training and help
+                            learners develop valuable skills through
+                            real-world exercises and projects.
+                        </p>
+
+                    {% endif %}
+
+                </div>
+
+
+
+                <!-- Curriculum -->
+
+                <div class="course-details-block course-curriculum">
+
+                    <div class="course-details-block__heading">
+
+                        <div>
+
+                            <span class="course-details-block__eyebrow">
+                                Course Curriculum
+                            </span>
+
+                            <h2>
+                                What You'll Learn
+                            </h2>
+
+                        </div>
+
+                        {% if course.modules.all %}
+
+                            <span class="course-curriculum__count">
+
+                                {{ course.modules.all|length }}
+                                Modules
+
+                            </span>
+
+                        {% endif %}
+
+                    </div>
+
+
+                    {% if course.modules.all %}
+
+                        <div class="accordion course-curriculum__accordion" id="courseCurriculum">
+
+                            {% for module in course.modules.all %}
+
+                                <div class="accordion-item course-module">
+
+                                    <h3
+                                        class="accordion-header"
+                                        id="moduleHeading{{ module.id }}"
+                                    >
+
+                                        <button
+                                            class="accordion-button {% if not forloop.first %}collapsed{% endif %}"
+                                            type="button"
+                                            data-bs-toggle="collapse"
+                                            data-bs-target="#module{{ module.id }}"
+                                            aria-expanded="{% if forloop.first %}true{% else %}false{% endif %}"
+                                            aria-controls="module{{ module.id }}"
+                                        >
+
+                                            <span class="course-module__number">
+                                                {{ forloop.counter|stringformat:"02d" }}
+                                            </span>
+
+                                            <span class="course-module__title">
+                                                {{ module.title }}
+                                            </span>
+
+                                        </button>
+
+                                    </h3>
+
+
+                                    <div
+                                        id="module{{ module.id }}"
+                                        class="accordion-collapse collapse {% if forloop.first %}show{% endif %}"
+                                        aria-labelledby="moduleHeading{{ module.id }}"
+                                        data-bs-parent="#courseCurriculum"
+                                    >
+
+                                        <div class="accordion-body course-module__body">
+
+                                            {% if module.description %}
+
+                                                <p class="course-module__description">
+                                                    {{ module.description }}
+                                                </p>
+
+                                            {% endif %}
+
+
+                                            {% if module.lessons.all %}
+
+                                                <div class="course-module__lessons">
+
+                                                    {% for lesson in module.lessons.all %}
+
+                                                        <div class="course-lesson">
+
+                                                            <span class="course-lesson__icon">
+
+                                                                <i class="fa-solid fa-play"></i>
+
+                                                            </span>
+
+                                                            <span class="course-lesson__content">
+
+                                                                <strong>
+                                                                    {{ lesson.title }}
+                                                                </strong>
+
+                                                                {% if lesson.description %}
+
+                                                                    <small>
+                                                                        {{ lesson.description }}
+                                                                    </small>
+
+                                                                {% endif %}
+
+                                                            </span>
+
+
+                                                            {% if lesson.duration %}
+
+                                                                <span class="course-lesson__duration">
+
+                                                                    <i class="fa-regular fa-clock"></i>
+
+                                                                    {{ lesson.duration }} min
+
+                                                                </span>
+
+                                                            {% endif %}
+
+                                                        </div>
+
+                                                    {% endfor %}
+
+                                                </div>
+
+                                            {% endif %}
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            {% endfor %}
+
+                        </div>
+
+                    {% else %}
+
+                        <div class="course-curriculum__empty">
+
+                            <i class="fa-solid fa-book-open"></i>
+
+                            <h3>
+                                Course Curriculum Coming Soon
+                            </h3>
+
+                            <p>
+                                Detailed course modules will be
+                                available soon.
+                            </p>
+
+                        </div>
+
+                    {% endif %}
+
+                </div>
+
+
+
+                <!-- Practical Learning -->
+
+                <div class="course-learning-box">
+
+                    <div class="course-learning-box__icon">
+
+                        <i class="fa-solid fa-laptop-code"></i>
+
+                    </div>
+
+                    <div>
+
+                        <span class="course-learning-box__eyebrow">
+                            Practical Learning
+                        </span>
+
+                        <h3>
+                            Learn by Doing
+                        </h3>
+
+                        <p>
+                            Our training focuses on practical learning,
+                            hands-on exercises and real-world projects
+                            so you can apply what you learn with
+                            confidence.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- Sidebar -->
+
+            <div class="col-12 col-lg-4">
+
+
+                <aside class="course-details-sidebar">
+
+
+                    <!-- Course Information -->
+
+                    <div class="course-sidebar-card">
+
+                        <h3>
+                            Course Information
+                        </h3>
+
+
+                        <div class="course-info-list">
+
+
+                            <div class="course-info-item">
+
+                                <span>
+                                    <i class="fa-solid fa-layer-group"></i>
+                                    Category
+                                </span>
+
+                                <strong>
+                                    {{ course.category.name }}
+                                </strong>
+
+                            </div>
+
+
+                            {% if course.duration %}
+
+                                <div class="course-info-item">
+
+                                    <span>
+                                        <i class="fa-regular fa-clock"></i>
+                                        Duration
+                                    </span>
+
+                                    <strong>
+                                        {{ course.duration }}
+                                    </strong>
+
+                                </div>
+
+                            {% endif %}
+
+
+                            {% if course.total_classes %}
+
+                                <div class="course-info-item">
+
+                                    <span>
+                                        <i class="fa-solid fa-calendar-days"></i>
+                                        Total Classes
+                                    </span>
+
+                                    <strong>
+                                        {{ course.total_classes }}
+                                    </strong>
+
+                                </div>
+
+                            {% endif %}
+
+
+                            <div class="course-info-item">
+
+                                <span>
+                                    <i class="fa-solid fa-signal"></i>
+                                    Level
+                                </span>
+
+                                <strong>
+
+                                    {% if course.level == "beginner" %}
+                                        Beginner
+                                    {% elif course.level == "intermediate" %}
+                                        Intermediate
+                                    {% elif course.level == "advanced" %}
+                                        Advanced
+                                    {% endif %}
+
+                                </strong>
+
+                            </div>
+
+
+                            <div class="course-info-item">
+
+                                <span>
+                                    <i class="fa-solid fa-laptop"></i>
+                                    Learning Method
+                                </span>
+
+                                <strong>
+                                    Practical
+                                </strong>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- Why Skillnex -->
+
+                    <div class="course-sidebar-card course-sidebar-card--highlight">
+
+                        <div class="course-sidebar-card__icon">
+
+                            <i class="fa-solid fa-graduation-cap"></i>
+
+                        </div>
+
+                        <h3>
+                            Why Learn With Skillnex?
+                        </h3>
+
+                        <ul>
+
+                            <li>
+                                <i class="fa-solid fa-check"></i>
+                                Practical, hands-on learning
+                            </li>
+
+                            <li>
+                                <i class="fa-solid fa-check"></i>
+                                Real-world project practice
+                            </li>
+
+                            <li>
+                                <i class="fa-solid fa-check"></i>
+                                Structured course curriculum
+                            </li>
+
+                            <li>
+                                <i class="fa-solid fa-check"></i>
+                                Skill-focused training
+                            </li>
+
+                        </ul>
+
+                    </div>
+
+
+
+                    <!-- Contact -->
+
+                    <div class="course-sidebar-contact">
+
+                        <span>
+                            Have Questions?
+                        </span>
+
+                        <h3>
+                            Talk to Our Team
+                        </h3>
+
+                        <p>
+                            Contact us to learn more about the course,
+                            upcoming batches and admission process.
+                        </p>
+
+                        <a
+                            href="{% url 'skillnex:contact' %}"
+                            class="course-sidebar-contact__button"
+                        >
+                            Contact Us
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+
+                    </div>
+
+                </aside>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================================
+     FINAL CTA
+========================================= -->
+
+<section class="section-sm">
+
+    <div class="container">
+
+        <div class="course-details-cta">
+
+            <div class="row align-items-center g-4">
+
+                <div class="col-12 col-lg-8">
+
+                    <span class="course-details-cta__eyebrow">
+                        Start Learning Today
+                    </span>
+
+                    <h2>
+                        Ready to Build Your Skills?
+                    </h2>
+
+                    <p>
+                        Take the next step toward developing practical
+                        digital skills with Skillnex IT Academy.
+                    </p>
+
+                </div>
+
+
+                <div class="col-12 col-lg-4 text-lg-end">
+
+                    <a
+                        href="{% url 'skillnex:contact' %}"
+                        class="course-details-cta__button"
+                    >
+                        <span>Get Started</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock content %}

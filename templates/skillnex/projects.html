@@ -1,0 +1,779 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block meta_description %}
+Explore projects created by Skillnex IT Academy, including websites, e-commerce platforms, web applications, branding, and digital marketing solutions.
+{% endblock meta_description %}
+
+{% block title %}
+Our Work | Skillnex IT Academy
+{% endblock title %}
+
+{% block extra_css %}
+
+<style>
+    /* =========================================================
+       Projects Hero
+    ========================================================= */
+
+    .projects-hero {
+        position: relative;
+        overflow: hidden;
+        padding: 6rem 0 5rem;
+        background:
+            radial-gradient(
+                circle at 85% 20%,
+                rgba(251, 137, 0, 0.12),
+                transparent 28%
+            ),
+            radial-gradient(
+                circle at 10% 80%,
+                rgba(244, 247, 255, 0.9),
+                transparent 30%
+            ),
+            var(--color-white);
+    }
+
+    .projects-hero__shape {
+        position: absolute;
+        width: 280px;
+        height: 280px;
+        right: -100px;
+        top: -100px;
+        border: 1px solid rgba(251, 137, 0, 0.12);
+        border-radius: 50%;
+        pointer-events: none;
+    }
+
+    .projects-hero__shape::before {
+        content: "";
+        position: absolute;
+        inset: 35px;
+        border: 1px solid rgba(251, 137, 0, 0.1);
+        border-radius: 50%;
+    }
+
+    .projects-hero__eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin-bottom: 1rem;
+        padding: 0.45rem 0.85rem;
+        border: 1px solid rgba(251, 137, 0, 0.18);
+        border-radius: var(--radius-pill);
+        background: var(--color-secondary);
+        color: var(--color-primary-dark);
+        font-size: var(--font-size-xs);
+        font-weight: var(--fw-bold);
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+    }
+
+    .projects-hero__eyebrow i {
+        color: var(--color-primary);
+    }
+
+    .projects-hero__title {
+        max-width: 850px;
+        margin-bottom: 1.25rem;
+        color: var(--color-heading);
+        font-size: clamp(2.5rem, 5vw, 4.5rem);
+        font-weight: var(--fw-extrabold);
+        line-height: 1.08;
+        letter-spacing: -0.045em;
+    }
+
+    .projects-hero__title span {
+        color: var(--color-primary);
+    }
+
+    .projects-hero__description {
+        max-width: 700px;
+        margin-bottom: 0;
+        color: var(--color-text-muted);
+        font-size: var(--font-size-lg);
+        line-height: 1.8;
+    }
+
+    .projects-hero__stats {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 2rem;
+        margin-top: 2.5rem;
+    }
+
+    .projects-hero__stat {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+    }
+
+    .projects-hero__stat-icon {
+        width: 42px;
+        height: 42px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: var(--radius-md);
+        background: var(--color-secondary);
+        color: var(--color-primary);
+    }
+
+    .projects-hero__stat strong {
+        display: block;
+        color: var(--color-heading);
+        font-size: var(--font-size-lg);
+        font-weight: var(--fw-bold);
+    }
+
+    .projects-hero__stat span {
+        display: block;
+        color: var(--color-text-muted);
+        font-size: var(--font-size-xs);
+    }
+
+
+    /* =========================================================
+       Projects Section
+    ========================================================= */
+
+    .projects-section {
+        background: var(--color-bg-soft);
+    }
+
+    .projects-section__header {
+        margin-bottom: 2.5rem;
+    }
+
+    .projects-section__eyebrow {
+        display: block;
+        margin-bottom: 0.6rem;
+        color: var(--color-primary);
+        font-size: var(--font-size-sm);
+        font-weight: var(--fw-bold);
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+    }
+
+    .projects-section__title {
+        margin-bottom: 0.75rem;
+        color: var(--color-heading);
+        font-size: clamp(2rem, 4vw, 3rem);
+        font-weight: var(--fw-extrabold);
+        letter-spacing: -0.035em;
+    }
+
+    .projects-section__description {
+        max-width: 680px;
+        margin-bottom: 0;
+        color: var(--color-text-muted);
+        line-height: 1.8;
+    }
+
+
+    /* =========================================================
+       Project Card
+    ========================================================= */
+
+    .project-showcase-card {
+        height: 100%;
+        overflow: hidden;
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius-xl);
+        background: var(--color-white);
+        box-shadow: var(--shadow-sm);
+        transition:
+            transform var(--transition-base),
+            box-shadow var(--transition-base),
+            border-color var(--transition-base);
+    }
+
+    .project-showcase-card:hover {
+        border-color: rgba(251, 137, 0, 0.28);
+        transform: translateY(-8px);
+        box-shadow: var(--shadow-lg);
+    }
+
+    .project-showcase-card__image {
+        position: relative;
+        aspect-ratio: 16 / 10;
+        overflow: hidden;
+        background: var(--color-secondary);
+    }
+
+    .project-showcase-card__image img {
+        width: 100%;
+        height: 100%;
+        display: block;
+        object-fit: cover;
+        transition: transform 500ms ease;
+    }
+
+    .project-showcase-card:hover
+    .project-showcase-card__image img {
+        transform: scale(1.06);
+    }
+
+    .project-showcase-card__placeholder {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background:
+            linear-gradient(
+                135deg,
+                var(--color-secondary),
+                var(--color-bg-blue)
+            );
+        color: var(--color-primary);
+        font-size: 3rem;
+    }
+
+    .project-showcase-card__overlay {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(17, 24, 39, 0.5);
+        opacity: 0;
+        transition: opacity var(--transition-base);
+    }
+
+    .project-showcase-card:hover
+    .project-showcase-card__overlay {
+        opacity: 1;
+    }
+
+    .project-showcase-card__open {
+        width: 50px;
+        height: 50px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        background: var(--color-primary);
+        color: var(--color-white);
+        text-decoration: none;
+        transform: translateY(10px);
+        transition:
+            transform var(--transition-base),
+            background var(--transition-base);
+    }
+
+    .project-showcase-card:hover
+    .project-showcase-card__open {
+        transform: translateY(0);
+    }
+
+    .project-showcase-card__open:hover {
+        background: var(--color-primary-dark);
+        color: var(--color-white);
+    }
+
+    .project-showcase-card__featured {
+        position: absolute;
+        top: 1rem;
+        left: 1rem;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        padding: 0.45rem 0.75rem;
+        border-radius: var(--radius-pill);
+        background: var(--color-primary);
+        color: var(--color-white);
+        font-size: var(--font-size-xs);
+        font-weight: var(--fw-bold);
+        box-shadow: var(--shadow-sm);
+    }
+
+    .project-showcase-card__client {
+        position: absolute;
+        right: 1rem;
+        bottom: 1rem;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        max-width: calc(100% - 2rem);
+        padding: 0.45rem 0.75rem;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: var(--radius-pill);
+        background: rgba(17, 24, 39, 0.72);
+        color: var(--color-white);
+        font-size: var(--font-size-xs);
+        font-weight: var(--fw-semibold);
+        backdrop-filter: blur(8px);
+    }
+
+    .project-showcase-card__client i {
+        color: var(--color-primary-light);
+    }
+
+    .project-showcase-card__content {
+        padding: 1.5rem;
+    }
+
+    .project-showcase-card__category {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.35rem;
+        margin-bottom: 0.7rem;
+        color: var(--color-primary);
+        font-size: var(--font-size-xs);
+        font-weight: var(--fw-bold);
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+    }
+
+    .project-showcase-card__title {
+        margin-bottom: 0.7rem;
+        font-size: var(--font-size-xl);
+        font-weight: var(--fw-bold);
+        line-height: 1.35;
+    }
+
+    .project-showcase-card__title a {
+        color: var(--color-heading);
+        text-decoration: none;
+        transition: color var(--transition-fast);
+    }
+
+    .project-showcase-card__title a:hover {
+        color: var(--color-primary);
+    }
+
+    .project-showcase-card__description {
+        display: -webkit-box;
+        margin-bottom: 1.25rem;
+        overflow: hidden;
+        color: var(--color-text-muted);
+        font-size: var(--font-size-sm);
+        line-height: 1.7;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 3;
+    }
+
+    .project-showcase-card__footer {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+        padding-top: 1rem;
+        border-top: 1px solid var(--color-border);
+    }
+
+    .project-showcase-card__link {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        color: var(--color-heading);
+        font-size: var(--font-size-sm);
+        font-weight: var(--fw-bold);
+        text-decoration: none;
+        transition:
+            color var(--transition-fast),
+            gap var(--transition-base);
+    }
+
+    .project-showcase-card__link i {
+        color: var(--color-primary);
+        transition: transform var(--transition-base);
+    }
+
+    .project-showcase-card__link:hover {
+        gap: 0.7rem;
+        color: var(--color-primary);
+    }
+
+    .project-showcase-card__link:hover i {
+        transform: translateX(3px);
+    }
+
+
+    /* =========================================================
+       Empty State
+    ========================================================= */
+
+    .projects-empty {
+        padding: 5rem 1.5rem;
+        border: 1px dashed var(--color-border);
+        border-radius: var(--radius-xl);
+        background: var(--color-white);
+        text-align: center;
+    }
+
+    .projects-empty__icon {
+        width: 70px;
+        height: 70px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 1.25rem;
+        border-radius: 50%;
+        background: var(--color-secondary);
+        color: var(--color-primary);
+        font-size: 1.5rem;
+    }
+
+    .projects-empty h3 {
+        margin-bottom: 0.6rem;
+        color: var(--color-heading);
+        font-size: var(--font-size-xl);
+        font-weight: var(--fw-bold);
+    }
+
+    .projects-empty p {
+        max-width: 500px;
+        margin: 0 auto;
+        color: var(--color-text-muted);
+        line-height: 1.7;
+    }
+
+
+    /* =========================================================
+       CTA
+    ========================================================= */
+
+    .projects-cta {
+        position: relative;
+        overflow: hidden;
+        background: var(--color-bg-blue);
+    }
+
+    .projects-cta__content {
+        position: relative;
+        z-index: 1;
+        padding: 5rem 0;
+        text-align: center;
+    }
+
+    .projects-cta__title {
+        max-width: 700px;
+        margin: 0 auto 1rem;
+        color: var(--color-heading);
+        font-size: clamp(2rem, 4vw, 3rem);
+        font-weight: var(--fw-extrabold);
+        letter-spacing: -0.035em;
+    }
+
+    .projects-cta__title span {
+        color: var(--color-primary-light);
+    }
+
+    .projects-cta__description {
+        max-width: 620px;
+        margin: 0 auto 2rem;
+        color: var(--color-text-muted);
+        line-height: 1.8;
+    }
+
+    .projects-cta__button {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.6rem;
+        padding: 0.9rem 1.4rem;
+        border-radius: var(--radius-md);
+        background: var(--color-primary);
+        color: var(--color-white);
+        font-size: var(--font-size-sm);
+        font-weight: var(--fw-bold);
+        text-decoration: none;
+        transition:
+            background var(--transition-base),
+            transform var(--transition-base),
+            box-shadow var(--transition-base);
+    }
+
+    .projects-cta__button:hover {
+        background: var(--color-primary-dark);
+        color: var(--color-white);
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-md);
+    }
+</style>
+
+{% endblock extra_css %}
+
+{% block content %}
+
+<!-- =========================================================
+     Hero
+========================================================= -->
+
+<section class="projects-hero">
+    <div class="projects-hero__shape"></div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-10 col-xl-9">
+
+            <span class="projects-hero__eyebrow">
+                <i class="fa-solid fa-layer-group"></i>
+                Our Work
+            </span>
+
+            <h1 class="projects-hero__title">
+                Turning Ideas Into
+                <span>Digital Experiences.</span>
+            </h1>
+
+            <p class="projects-hero__description">
+                Explore the websites, e-commerce platforms, web
+                applications, branding projects, and digital solutions
+                we've created for businesses and organizations.
+            </p>
+
+            <div class="projects-hero__stats">
+
+                <div class="projects-hero__stat">
+                    <div class="projects-hero__stat-icon">
+                        <i class="fa-solid fa-code"></i>
+                    </div>
+
+                    <div>
+                        <strong>{{ projects|length }}+</strong>
+                        <span>Projects</span>
+                    </div>
+                </div>
+
+                <div class="projects-hero__stat">
+                    <div class="projects-hero__stat-icon">
+                        <i class="fa-solid fa-laptop-code"></i>
+                    </div>
+
+                    <div>
+                        <strong>Digital</strong>
+                        <span>Solutions</span>
+                    </div>
+                </div>
+
+                <div class="projects-hero__stat">
+                    <div class="projects-hero__stat-icon">
+                        <i class="fa-solid fa-arrow-trend-up"></i>
+                    </div>
+
+                    <div>
+                        <strong>Business</strong>
+                        <span>Focused</span>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+</section>
+
+<!-- =========================================================
+     Projects
+========================================================= -->
+
+<section class="projects-section section">
+
+<div class="container">
+
+    <div class="projects-section__header">
+
+        <span class="projects-section__eyebrow">
+            Selected Projects
+        </span>
+
+        <h2 class="projects-section__title">
+            Work We're Proud Of
+        </h2>
+
+        <p class="projects-section__description">
+            Every project starts with an idea. We turn those ideas into
+            practical, user-friendly, and business-focused digital
+            solutions.
+        </p>
+
+    </div>
+
+
+    {% if projects %}
+
+        <div class="row g-4">
+
+            {% for project in projects %}
+
+                <div class="col-md-6 col-lg-4">
+
+                    <article class="project-showcase-card">
+
+                        <!-- Project Image -->
+                        <div class="project-showcase-card__image">
+
+                            {% if project.image %}
+
+                                <img
+                                    src="{{ project.image.url }}"
+                                    alt="{{ project.name }}"
+                                    loading="lazy"
+                                >
+
+                            {% else %}
+
+                                <div class="project-showcase-card__placeholder">
+                                    <i class="fa-solid fa-image"></i>
+                                </div>
+
+                            {% endif %}
+
+
+                            <!-- Featured Badge -->
+                            {% if project.is_featured %}
+
+                                <span class="project-showcase-card__featured">
+                                    <i class="fa-solid fa-star"></i>
+                                    Featured
+                                </span>
+
+                            {% endif %}
+
+
+                            <!-- Hover Overlay -->
+                            <div class="project-showcase-card__overlay">
+
+                                <a
+                                    href="{{ project.get_absolute_url }}"
+                                    class="project-showcase-card__open"
+                                    aria-label="View {{ project.name }}"
+                                >
+                                    <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                                </a>
+
+                            </div>
+
+
+                            <!-- Client -->
+                            {% if project.client_name %}
+
+                                <div class="project-showcase-card__client">
+                                    <i class="fa-regular fa-building"></i>
+                                    {{ project.client_name }}
+                                </div>
+
+                            {% endif %}
+
+                        </div>
+
+
+                        <!-- Project Content -->
+                        <div class="project-showcase-card__content">
+
+                            {% if project.category %}
+
+                                <span class="project-showcase-card__category">
+                                    <i class="fa-solid fa-folder-open"></i>
+                                    {{ project.category }}
+                                </span>
+
+                            {% endif %}
+
+
+                            <h3 class="project-showcase-card__title">
+
+                                <a href="{{ project.get_absolute_url }}">
+                                    {{ project.name }}
+                                </a>
+
+                            </h3>
+
+
+                            {% if project.short_description %}
+
+                                <p class="project-showcase-card__description">
+                                    {{ project.short_description }}
+                                </p>
+
+                            {% endif %}
+
+
+                            <div class="project-showcase-card__footer">
+
+                                <a
+                                    href="{{ project.get_absolute_url }}"
+                                    class="project-showcase-card__link"
+                                >
+                                    View Project
+                                    <i class="fa-solid fa-arrow-right"></i>
+                                </a>
+
+                            </div>
+
+                        </div>
+
+                    </article>
+
+                </div>
+
+            {% endfor %}
+
+        </div>
+
+    {% else %}
+
+        <div class="projects-empty">
+
+            <div class="projects-empty__icon">
+                <i class="fa-solid fa-folder-open"></i>
+            </div>
+
+            <h3>
+                Projects Are Coming Soon
+            </h3>
+
+            <p>
+                We're currently preparing our project showcase.
+                Check back soon to explore the work we've created
+                for our clients.
+            </p>
+
+        </div>
+
+    {% endif %}
+
+</div>
+
+</section>
+
+<!-- =========================================================
+     CTA
+========================================================= -->
+
+<section class="projects-cta">
+
+<div class="container">
+
+    <div class="projects-cta__content">
+
+        <h2 class="projects-cta__title">
+            Have an idea?
+            <span>Let's build it.</span>
+        </h2>
+
+        <p class="projects-cta__description">
+            Whether you need a website, e-commerce platform,
+            custom web application, branding, or digital marketing,
+            Skillnex can help turn your idea into a real project.
+        </p>
+
+        <a
+            href="{% url 'skillnex:contact' %}"
+            class="projects-cta__button"
+        >
+            Start a Project
+            <i class="fa-solid fa-arrow-right"></i>
+        </a>
+
+    </div>
+
+</div>
+
+</section>
+
+{% endblock content %}

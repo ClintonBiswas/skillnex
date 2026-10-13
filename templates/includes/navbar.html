@@ -1,0 +1,174 @@
+{% load static %}
+
+<nav class="navbar navbar-expand-lg site-navbar" id="siteNavbar">
+    <div class="container">
+
+        <!-- =================================================
+             LOGO
+             ================================================== -->
+        {% if site_settings and site_settings.logo %}
+        <a
+            class="navbar-brand site-navbar__brand"
+            href="{% url 'skillnex:home' %}"
+            aria-label="Go to homepage"
+        >
+            <img
+                src="{{ site_settings.logo.url }}"
+                alt="{{site_settings.company_name}}"
+                class="site-navbar__logo"
+            >
+        </a>
+        {% endif %}
+
+
+<!-- =================================================
+     MOBILE TOGGLE
+     ================================================== -->
+
+    <button
+        class="navbar-toggler site-navbar__toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#mainNavbar"
+        aria-controls="mainNavbar"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+    >
+        <span class="site-navbar__toggler-icon">
+            <span></span>
+            <span></span>
+            <span></span>
+        </span>
+    </button>
+
+        <!-- =================================================
+             NAVIGATION + ACTIONS
+             ================================================== -->
+
+        <div
+            class="collapse navbar-collapse"
+            id="mainNavbar"
+        >
+
+            <!-- Main Navigation -->
+
+
+                    <ul class="navbar-nav mx-auto mb-3 mb-lg-0">
+
+                        <!-- Home -->
+                        <li class="nav-item">
+                            <a
+                                class="nav-link site-navbar__link {% if request.resolver_match.url_name == 'home' %}active{% endif %}"
+                                href="{% url 'skillnex:home' %}"
+                            >
+                                Home
+                            </a>
+                        </li>
+
+
+                        <!-- About -->
+                        <li class="nav-item">
+                            <a
+                                class="nav-link site-navbar__link {% if request.resolver_match.url_name == 'about' %}active{% endif %}"
+                                href="{% url 'skillnex:about' %}"
+                            >
+                                About Us
+                            </a>
+                        </li>
+
+
+                        <!-- Services -->
+                        <li class="nav-item">
+                            <a
+                                class="nav-link site-navbar__link {% if request.resolver_match.url_name == 'service' or request.resolver_match.url_name == 'service_details' %}active{% endif %}"
+                                href="{% url 'skillnex:service' %}"
+                            >
+                                Services
+                            </a>
+                        </li>
+
+
+                        <!-- Training -->
+                        <li class="nav-item">
+                            <a
+                                class="nav-link site-navbar__link {% if request.resolver_match.url_name == 'training' or request.resolver_match.url_name == 'training_category_details' or request.resolver_match.url_name == 'training_course_detail' %}active{% endif %}"
+                                href="{% url 'skillnex:training' %}"
+                            >
+                                Training
+                            </a>
+                        </li>
+
+
+                        <!-- Our Work -->
+                        <li class="nav-item">
+                            <a
+                                class="nav-link site-navbar__link {% if request.resolver_match.url_name == 'projects' or request.resolver_match.url_name == 'project_details' %}active{% endif %}"
+                                href="{% url 'skillnex:projects' %}"
+                            >
+                                Our Work
+                            </a>
+                        </li>
+
+
+                        <!-- Blog -->
+                        <li class="nav-item">
+                            <a
+                                class="nav-link site-navbar__link {% if request.resolver_match.url_name == 'blog' or request.resolver_match.url_name == 'blog_category' or request.resolver_match.url_name == 'blog_tag' or request.resolver_match.url_name == 'blog_details' %}active{% endif %}"
+                                href="{% url 'skillnex:blog' %}"
+                            >
+                                Blog
+                            </a>
+                        </li>
+
+
+                        <!-- Contact -->
+                        <li class="nav-item">
+                            <a
+                                class="nav-link site-navbar__link {% if request.resolver_match.url_name == 'contact' %}active{% endif %}"
+                                href="{% url 'skillnex:contact' %}"
+                            >
+                                Contact
+                            </a>
+                        </li>
+
+                    </ul>
+
+
+
+
+            <!-- =================================================
+                 ACTION BUTTONS
+                 ================================================== -->
+
+            <div class="site-navbar__actions">
+
+                <!-- WhatsApp -->
+
+                <a
+                    href="https://wa.me/{{site_settings.whatsapp}}"
+                    class="btn site-navbar__whatsapp"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Chat with us on WhatsApp"
+                >
+                    <i class="fa-brands fa-whatsapp"></i>
+                    <span>WhatsApp</span>
+                </a>
+
+
+                <!-- Get Started -->
+
+                <a
+                    href="{% url 'skillnex:contact' %}"
+                    class="btn site-navbar__cta"
+                >
+                    <span>Get Started</span>
+                    <i class="fa-solid fa-arrow-right"></i>
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+</nav>

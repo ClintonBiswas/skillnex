@@ -1,0 +1,336 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Blog | Skillnex IT Academy
+{% endblock title %}
+
+{% block meta_description %}
+    Explore web development, digital marketing, graphic design, technology and business insights from Skillnex IT Academy.
+{% endblock meta_description %}
+
+
+{% block content %}
+
+<!-- =====================================================
+     BLOG HERO
+===================================================== -->
+<section class="blog-hero">
+    <div class="container">
+        <div class="blog-hero__content text-center">
+
+            <span class="section-eyebrow">
+                <i class="fa-solid fa-newspaper"></i>
+                Skillnex Blog
+            </span>
+
+            <h1 class="blog-hero__title">
+                Ideas, Insights &amp;
+                <span>Digital Knowledge</span>
+            </h1>
+
+            <p class="blog-hero__description">
+                Practical insights about web development, digital marketing,
+                graphic design, technology and growing your digital presence.
+            </p>
+
+        </div>
+    </div>
+</section>
+
+
+<!-- =====================================================
+     BLOG CONTENT
+===================================================== -->
+<section class="blog-section">
+    <div class="container">
+
+        <!-- CATEGORY FILTER -->
+        {% if categories %}
+            <div class="blog-categories mb-5">
+
+                <a href="{% url 'skillnex:blog' %}"
+                   class="blog-category-link
+                   {% if not category %}active{% endif %}">
+                    All Articles
+                </a>
+
+                {% for item in categories %}
+                    <a href="{{ item.get_absolute_url }}"
+                       class="blog-category-link
+                       {% if category and category.pk == item.pk %}active{% endif %}">
+                        {{ item.name }}
+                    </a>
+                {% endfor %}
+
+            </div>
+        {% endif %}
+
+
+        <!-- CATEGORY / TAG RESULT TITLE -->
+        {% if category %}
+            <div class="blog-result-heading mb-4">
+                <span>Category</span>
+                <h2>{{ category.name }}</h2>
+
+                {% if category.description %}
+                    <p>{{ category.description }}</p>
+                {% endif %}
+            </div>
+        {% elif tag %}
+            <div class="blog-result-heading mb-4">
+                <span>Tagged Articles</span>
+                <h2>#{{ tag.name }}</h2>
+            </div>
+        {% endif %}
+
+
+        <!-- =================================================
+             FEATURED POST
+        ================================================== -->
+        {% if featured_post and not category and not tag %}
+
+            <article class="featured-blog">
+
+                <div class="row g-0 align-items-stretch">
+
+                    <!-- IMAGE -->
+                    <div class="col-lg-6">
+
+                        <a href="{{ featured_post.get_absolute_url }}"
+                           class="featured-blog__image">
+
+                            {% if featured_post.featured_image %}
+                                <img
+                                    src="{{ featured_post.featured_image.url }}"
+                                    alt="{{ featured_post.title }}"
+                                >
+                            {% else %}
+                                <div class="featured-blog__placeholder">
+                                    <i class="fa-solid fa-newspaper"></i>
+                                </div>
+                            {% endif %}
+
+                            <span class="featured-blog__badge">
+                                Featured
+                            </span>
+
+                        </a>
+
+                    </div>
+
+
+                    <!-- CONTENT -->
+                    <div class="col-lg-6">
+
+                        <div class="featured-blog__content">
+
+                            <a href="{{ featured_post.category.get_absolute_url }}"
+                               class="blog-card__category">
+                                {{ featured_post.category.name }}
+                            </a>
+
+                            <h2 class="featured-blog__title">
+                                <a href="{{ featured_post.get_absolute_url }}">
+                                    {{ featured_post.title }}
+                                </a>
+                            </h2>
+
+                            <p class="featured-blog__excerpt">
+                                {{ featured_post.excerpt }}
+                            </p>
+
+                            <div class="blog-card__meta">
+                                <span>
+                                    <i class="fa-regular fa-calendar"></i>
+                                    {{ featured_post.published_at|date:"d M Y" }}
+                                </span>
+
+                                {% if featured_post.author %}
+                                    <span>
+                                        <i class="fa-regular fa-user"></i>
+                                        {{ featured_post.author }}
+                                    </span>
+                                {% endif %}
+                            </div>
+
+                            <a href="{{ featured_post.get_absolute_url }}"
+                               class="btn btn-primary blog-read-btn">
+                                Read Article
+                                <i class="fa-solid fa-arrow-right"></i>
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </article>
+
+        {% endif %}
+
+
+        <!-- =================================================
+             POSTS
+        ================================================== -->
+        {% if posts %}
+
+            <div class="blog-section-heading">
+
+                <div>
+                    <span class="section-eyebrow">
+                        Latest Articles
+                    </span>
+
+                    <h2>
+                        Explore Our Latest Insights
+                    </h2>
+                </div>
+
+            </div>
+
+
+            <div class="row g-4">
+
+                {% for post in posts %}
+
+                    <div class="col-md-6 col-lg-4">
+
+                        <article class="blog-card">
+
+                            <!-- IMAGE -->
+                            <a href="{{ post.get_absolute_url }}"
+                               class="blog-card__image">
+
+                                {% if post.featured_image %}
+                                    <img
+                                        src="{{ post.featured_image.url }}"
+                                        alt="{{ post.title }}"
+                                    >
+                                {% else %}
+                                    <div class="blog-card__placeholder">
+                                        <i class="fa-solid fa-newspaper"></i>
+                                    </div>
+                                {% endif %}
+
+                            </a>
+
+
+                            <!-- CONTENT -->
+                            <div class="blog-card__content">
+
+                                <a href="{{ post.category.get_absolute_url }}"
+                                   class="blog-card__category">
+                                    {{ post.category.name }}
+                                </a>
+
+                                <h3 class="blog-card__title">
+                                    <a href="{{ post.get_absolute_url }}">
+                                        {{ post.title }}
+                                    </a>
+                                </h3>
+
+                                <p class="blog-card__excerpt">
+                                    {{ post.excerpt }}
+                                </p>
+
+
+                                <div class="blog-card__footer">
+
+                                    <div class="blog-card__meta">
+
+                                        <span>
+                                            <i class="fa-regular fa-calendar"></i>
+                                            {{ post.published_at|date:"d M Y" }}
+                                        </span>
+
+                                        {% if post.author %}
+                                            <span>
+                                                <i class="fa-regular fa-user"></i>
+                                                {{ post.author }}
+                                            </span>
+                                        {% endif %}
+
+                                    </div>
+
+                                    <a href="{{ post.get_absolute_url }}"
+                                       class="blog-card__arrow"
+                                       aria-label="Read {{ post.title }}">
+                                        <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                                    </a>
+
+                                </div>
+
+                            </div>
+
+                        </article>
+
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+        {% else %}
+
+            <!-- EMPTY STATE -->
+            <div class="blog-empty">
+
+                <div class="blog-empty__icon">
+                    <i class="fa-regular fa-newspaper"></i>
+                </div>
+
+                <h3>No articles found</h3>
+
+                <p>
+                    We haven't published any articles in this category yet.
+                    Please check back soon.
+                </p>
+
+                <a href="{% url 'skillnex:blog' %}"
+                   class="btn btn-primary">
+                    View All Articles
+                </a>
+
+            </div>
+
+        {% endif %}
+
+
+        <!-- =================================================
+             TAGS
+        ================================================== -->
+        {% if tags and not category and not tag %}
+
+            <div class="blog-tags-section">
+
+                <div class="text-center mb-4">
+                    <span class="section-eyebrow">
+                        Explore Topics
+                    </span>
+
+                    <h2>
+                        Browse By Topic
+                    </h2>
+                </div>
+
+                <div class="blog-tags">
+
+                    {% for item in tags %}
+                        <a href="{{ item.get_absolute_url }}"
+                           class="blog-tag">
+                            #{{ item.name }}
+                        </a>
+                    {% endfor %}
+
+                </div>
+
+            </div>
+
+        {% endif %}
+
+    </div>
+</section>
+
+{% endblock content %}
+

@@ -1,0 +1,652 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block meta_description %}
+{{ project.short_description }}
+{% endblock meta_description %}
+
+{% block title %}
+{{ project.name }} | Skillnex IT Academy
+{% endblock title %}
+
+{% block extra_css %}
+
+<style>
+
+    /* =========================================================
+       Project Details Hero
+    ========================================================= */
+
+    .project-details-hero {
+        position: relative;
+        overflow: hidden;
+        padding: 5rem 0 4rem;
+        background:
+            radial-gradient(
+                circle at 85% 15%,
+                rgba(251, 137, 0, 0.12),
+                transparent 28%
+            ),
+            var(--color-bg-blue);
+    }
+
+    .project-details-hero__eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin-bottom: 1.25rem;
+        padding: 0.5rem 0.85rem;
+        border: 1px solid rgba(251, 137, 0, 0.2);
+        border-radius: var(--radius-pill);
+        background: var(--color-secondary);
+        color: var(--color-primary-dark);
+        font-size: var(--font-size-xs);
+        font-weight: var(--fw-bold);
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+    }
+
+    .project-details-hero__eyebrow i {
+        color: var(--color-primary);
+    }
+
+    .project-details-hero__title {
+        max-width: 900px;
+        margin-bottom: 1rem;
+        color: var(--color-heading);
+        font-size: clamp(2.5rem, 5vw, 4.5rem);
+        font-weight: var(--fw-extrabold);
+        line-height: 1.08;
+        letter-spacing: -0.045em;
+    }
+
+    .project-details-hero__description {
+        max-width: 750px;
+        margin-bottom: 2rem;
+        color: var(--color-text-muted);
+        font-size: var(--font-size-lg);
+        line-height: 1.8;
+    }
+
+    .project-details-hero__actions {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 0.75rem;
+    }
+
+    .project-details-button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.55rem;
+        padding: 0.85rem 1.2rem;
+        border-radius: var(--radius-md);
+        font-size: var(--font-size-sm);
+        font-weight: var(--fw-bold);
+        text-decoration: none;
+        transition:
+            transform var(--transition-base),
+            background var(--transition-base),
+            color var(--transition-base),
+            border-color var(--transition-base);
+    }
+
+    .project-details-button--primary {
+        background: var(--color-primary);
+        color: var(--color-white);
+    }
+
+    .project-details-button--primary:hover {
+        background: var(--color-primary-dark);
+        color: var(--color-white);
+        transform: translateY(-2px);
+    }
+
+    .project-details-button--outline {
+        border: 1px solid var(--color-border);
+        background: var(--color-white);
+        color: var(--color-heading);
+    }
+
+    .project-details-button--outline:hover {
+        border-color: var(--color-primary);
+        color: var(--color-primary);
+        transform: translateY(-2px);
+    }
+
+
+    /* =========================================================
+       Project Image
+    ========================================================= */
+
+    .project-details-image-section {
+        margin-top: -1rem;
+        background: var(--color-bg-blue);
+    }
+
+    .project-details-image {
+        position: relative;
+        overflow: hidden;
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius-xl);
+        background: var(--color-white);
+        box-shadow: var(--shadow-lg);
+    }
+
+    .project-details-image img {
+        width: 100%;
+        height: auto;
+        display: block;
+        object-fit: cover;
+    }
+
+    .project-details-image__placeholder {
+        min-height: 450px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background:
+            linear-gradient(
+                135deg,
+                var(--color-secondary),
+                var(--color-bg-blue)
+            );
+        color: var(--color-primary);
+        font-size: 4rem;
+    }
+
+
+    /* =========================================================
+       Project Information
+    ========================================================= */
+
+    .project-details-content {
+        background: var(--color-white);
+    }
+
+    .project-details-block {
+        padding: 2rem 0;
+    }
+
+    .project-details-block + .project-details-block {
+        border-top: 1px solid var(--color-border);
+    }
+
+    .project-details-block__eyebrow {
+        display: block;
+        margin-bottom: 0.6rem;
+        color: var(--color-primary);
+        font-size: var(--font-size-sm);
+        font-weight: var(--fw-bold);
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+    }
+
+    .project-details-block__title {
+        margin-bottom: 1rem;
+        color: var(--color-heading);
+        font-size: clamp(1.75rem, 3vw, 2.5rem);
+        font-weight: var(--fw-extrabold);
+        letter-spacing: -0.03em;
+    }
+
+    .project-details-description {
+        color: var(--color-text);
+        font-size: var(--font-size-base);
+        line-height: 1.9;
+    }
+
+
+    /* =========================================================
+       Sidebar
+    ========================================================= */
+
+    .project-details-sidebar {
+        position: sticky;
+        top: 100px;
+        padding: 1.5rem;
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius-xl);
+        background: var(--color-bg-soft);
+    }
+
+    .project-details-sidebar__title {
+        margin-bottom: 1.25rem;
+        color: var(--color-heading);
+        font-size: var(--font-size-lg);
+        font-weight: var(--fw-bold);
+    }
+
+    .project-details-meta {
+        display: flex;
+        align-items: flex-start;
+        gap: 0.85rem;
+        padding: 1rem 0;
+        border-bottom: 1px solid var(--color-border);
+    }
+
+    .project-details-meta:last-child {
+        border-bottom: 0;
+        padding-bottom: 0;
+    }
+
+    .project-details-meta:first-of-type {
+        padding-top: 0;
+    }
+
+    .project-details-meta__icon {
+        width: 38px;
+        height: 38px;
+        flex: 0 0 38px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: var(--radius-md);
+        background: var(--color-secondary);
+        color: var(--color-primary);
+    }
+
+    .project-details-meta__label {
+        display: block;
+        margin-bottom: 0.2rem;
+        color: var(--color-text-muted);
+        font-size: var(--font-size-xs);
+        font-weight: var(--fw-medium);
+    }
+
+    .project-details-meta__value {
+        display: block;
+        color: var(--color-heading);
+        font-size: var(--font-size-sm);
+        font-weight: var(--fw-semibold);
+        word-break: break-word;
+    }
+
+    .project-details-meta__value a {
+        color: var(--color-primary);
+        text-decoration: none;
+    }
+
+    .project-details-meta__value a:hover {
+        color: var(--color-primary-dark);
+    }
+
+
+    /* =========================================================
+       CTA
+    ========================================================= */
+
+    .project-details-cta {
+        position: relative;
+        overflow: hidden;
+        background: var(--color-bg-blue);
+    }
+
+    .project-details-cta__content {
+        padding: 5rem 0;
+        text-align: center;
+    }
+
+    .project-details-cta__title {
+        max-width: 700px;
+        margin: 0 auto 1rem;
+        color: var(--color-heading);
+        font-size: clamp(2rem, 4vw, 3rem);
+        font-weight: var(--fw-extrabold);
+        letter-spacing: -0.035em;
+    }
+
+    .project-details-cta__title span {
+        color: var(--color-primary);
+    }
+
+    .project-details-cta__description {
+        max-width: 620px;
+        margin: 0 auto 2rem;
+        color: var(--color-text-muted);
+        line-height: 1.8;
+    }
+
+
+    /* =========================================================
+       Mobile
+    ========================================================= */
+
+    @media (max-width: 767.98px) {
+
+        .project-details-hero {
+            padding: 3.5rem 0 3rem;
+        }
+
+        .project-details-image-section {
+            margin-top: 0;
+        }
+
+        .project-details-sidebar {
+            position: static;
+        }
+
+        .project-details-cta__content {
+            padding: 3.5rem 0;
+        }
+
+    }
+
+</style>
+
+{% endblock extra_css %}
+
+{% block content %}
+
+<!-- =========================================================
+     Hero
+========================================================= -->
+
+<section class="project-details-hero">
+
+<div class="container">
+
+    <div class="row">
+
+        <div class="col-lg-10">
+
+            <span class="project-details-hero__eyebrow">
+
+                <i class="fa-solid fa-folder-open"></i>
+
+                {{ project.get_category_display }}
+
+            </span>
+
+
+            <h1 class="project-details-hero__title">
+                {{ project.name }}
+            </h1>
+
+
+            {% if project.short_description %}
+
+                <p class="project-details-hero__description">
+                    {{ project.short_description }}
+                </p>
+
+            {% endif %}
+
+
+            <div class="project-details-hero__actions">
+
+                {% if project.project_url %}
+
+                    <a
+                        href="{{ project.project_url }}"
+                        class="project-details-button project-details-button--primary"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        Visit Live Project
+                        <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                    </a>
+
+                {% endif %}
+
+
+                <a
+                    href="{% url 'skillnex:projects' %}"
+                    class="project-details-button project-details-button--outline"
+                >
+                    <i class="fa-solid fa-arrow-left"></i>
+                    Back to Our Work
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+</section>
+
+<!-- =========================================================
+     Project Image
+========================================================= -->
+
+<section class="project-details-image-section pb-5">
+
+<div class="container">
+
+    <div class="project-details-image">
+
+        {% if project.image %}
+
+            <img
+                src="{{ project.image.url }}"
+                alt="{{ project.name }}"
+            >
+
+        {% else %}
+
+            <div class="project-details-image__placeholder">
+
+                <i class="fa-solid fa-image"></i>
+
+            </div>
+
+        {% endif %}
+
+    </div>
+
+</div>
+
+</section>
+
+<!-- =========================================================
+     Project Details
+========================================================= -->
+
+<section class="project-details-content section">
+
+<div class="container">
+
+    <div class="row g-5">
+
+        <!-- Main Content -->
+        <div class="col-lg-8">
+
+            <div class="project-details-block pt-0">
+
+                <span class="project-details-block__eyebrow">
+                    Project Overview
+                </span>
+
+                <h2 class="project-details-block__title">
+                    About This Project
+                </h2>
+
+
+                {% if project.description %}
+
+                    <div class="project-details-description">
+                        {{ project.description|linebreaks }}
+                    </div>
+
+                {% else %}
+
+                    <p class="project-details-description">
+                        {{ project.short_description }}
+                    </p>
+
+                {% endif %}
+
+            </div>
+
+        </div>
+
+
+        <!-- Sidebar -->
+        <div class="col-lg-4">
+
+            <aside class="project-details-sidebar">
+
+                <h3 class="project-details-sidebar__title">
+                    Project Information
+                </h3>
+
+
+                <!-- Category -->
+
+                <div class="project-details-meta">
+
+                    <div class="project-details-meta__icon">
+                        <i class="fa-solid fa-layer-group"></i>
+                    </div>
+
+                    <div>
+
+                        <span class="project-details-meta__label">
+                            Category
+                        </span>
+
+                        <span class="project-details-meta__value">
+                            {{ project.get_category_display }}
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Client -->
+
+                {% if project.client_name %}
+
+                    <div class="project-details-meta">
+
+                        <div class="project-details-meta__icon">
+                            <i class="fa-regular fa-building"></i>
+                        </div>
+
+                        <div>
+
+                            <span class="project-details-meta__label">
+                                Client
+                            </span>
+
+                            <span class="project-details-meta__value">
+                                {{ project.client_name }}
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                {% endif %}
+
+
+                <!-- Project Date -->
+
+                <div class="project-details-meta">
+
+                    <div class="project-details-meta__icon">
+                        <i class="fa-regular fa-calendar"></i>
+                    </div>
+
+                    <div>
+
+                        <span class="project-details-meta__label">
+                            Completed
+                        </span>
+
+                        <span class="project-details-meta__value">
+                            {{ project.created_at|date:"F Y" }}
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Live URL -->
+
+                {% if project.project_url %}
+
+                    <div class="project-details-meta">
+
+                        <div class="project-details-meta__icon">
+                            <i class="fa-solid fa-globe"></i>
+                        </div>
+
+                        <div>
+
+                            <span class="project-details-meta__label">
+                                Live Website
+                            </span>
+
+                            <span class="project-details-meta__value">
+
+                                <a
+                                    href="{{ project.project_url }}"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                >
+                                    Visit Website
+                                    <i class="fa-solid fa-arrow-up-right-from-square ms-1"></i>
+                                </a>
+
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                {% endif %}
+
+            </aside>
+
+        </div>
+
+    </div>
+
+</div>
+```
+
+</section>
+
+<!-- =========================================================
+     CTA
+========================================================= -->
+
+<section class="project-details-cta">
+
+```
+<div class="container">
+
+    <div class="project-details-cta__content">
+
+        <h2 class="project-details-cta__title">
+            Have a project in mind?
+            <span>Let's build it.</span>
+        </h2>
+
+        <p class="project-details-cta__description">
+            Tell us about your idea and let's create a digital
+            solution that fits your business.
+        </p>
+
+        <a
+            href="{% url 'skillnex:contact' %}"
+            class="project-details-button project-details-button--primary"
+        >
+            Start a Project
+            <i class="fa-solid fa-arrow-right"></i>
+        </a>
+
+    </div>
+
+</div>
+
+</section>
+
+{% endblock content %}
