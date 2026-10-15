@@ -3,13 +3,11 @@ from pathlib import Path
 from decouple import config, Csv
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-from decouple import config, Csv
+
 
 SECRET_KEY = config("DJANGO_SECRET_KEY")
 
@@ -36,7 +34,6 @@ SESSION_COOKIE_SECURE = config(
 CSRF_COOKIE_SECURE = config(
     "CSRF_COOKIE_SECURE", default=False, cast=bool
 )
-
 
 # Application definition
 
