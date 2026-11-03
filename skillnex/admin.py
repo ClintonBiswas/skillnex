@@ -1,3 +1,4 @@
+
 from django.contrib import admin
 
 from skillnex.models import (
@@ -28,25 +29,141 @@ from skillnex.models import (
 from .services.enrollment_sms import send_enrollment_status_sms
 
 
-# Register your models here.
-admin.site.register(Service)
-admin.site.register(ServiceFeature)
-admin.site.register(ServiceHighlight)
-admin.site.register(CompanyHistory)
-admin.site.register(AboutPage)
-admin.site.register(AboutAchievement)
-admin.site.register(AboutValue)
-admin.site.register(TrainingCategory)
-admin.site.register(CourseModule)
-admin.site.register(TrainingInstructor)
-admin.site.register(CourseLesson)
-admin.site.register(TrainingCourse)
-admin.site.register(TrainingBatch)
-admin.site.register(Project)
-admin.site.register(BlogTag)
-admin.site.register(BlogPost)
-admin.site.register(BlogCategory)
+# =========================================================
+# SERVICE
+# =========================================================
 
+class ServiceFeatureInline(admin.TabularInline):
+    model = ServiceFeature
+    extra = 1
+
+
+class ServiceHighlightInline(admin.TabularInline):
+    model = ServiceHighlight
+    extra = 1
+
+
+@admin.register(Service)
+class ServiceAdmin(admin.ModelAdmin):
+    inlines = [
+        ServiceFeatureInline,
+        ServiceHighlightInline,
+    ]
+
+
+# =========================================================
+# ABOUT PAGE
+# =========================================================
+
+class AboutAchievementInline(admin.TabularInline):
+    model = AboutAchievement
+    extra = 1
+
+
+class AboutValueInline(admin.TabularInline):
+    model = AboutValue
+    extra = 1
+
+
+@admin.register(AboutPage)
+class AboutPageAdmin(admin.ModelAdmin):
+    inlines = [
+        AboutAchievementInline,
+        AboutValueInline,
+    ]
+
+
+# CompanyHistory has no confirmed ForeignKey to AboutPage.
+admin.site.register(CompanyHistory)
+
+
+# =========================================================
+# TRAINING
+# =========================================================
+
+class TrainingCourseInline(admin.TabularInline):
+    model = TrainingCourse
+    extra = 1
+    show_change_link = True
+
+
+@admin.register(TrainingCategory)
+class TrainingCategoryAdmin(admin.ModelAdmin):
+    inlines = [
+        TrainingCourseInline,
+    ]
+
+
+class CourseModuleInline(admin.TabularInline):
+    model = CourseModule
+    extra = 1
+    show_change_link = True
+
+
+class TrainingBatchInline(admin.TabularInline):
+    model = TrainingBatch
+    extra = 1
+
+
+@admin.register(TrainingCourse)
+class TrainingCourseAdmin(admin.ModelAdmin):
+    inlines = [
+        CourseModuleInline,
+        TrainingBatchInline,
+    ]
+
+
+class CourseLessonInline(admin.TabularInline):
+    model = CourseLesson
+    extra = 1
+
+
+@admin.register(CourseModule)
+class CourseModuleAdmin(admin.ModelAdmin):
+    inlines = [
+        CourseLessonInline,
+    ]
+
+
+# Instructor remains independently manageable.
+admin.site.register(TrainingInstructor)
+
+
+# =========================================================
+# PROJECT
+# =========================================================
+
+admin.site.register(Project)
+
+
+# =========================================================
+# BLOG
+# =========================================================
+
+class BlogPostInline(admin.TabularInline):
+    model = BlogPost
+    extra = 1
+    show_change_link = True
+
+
+@admin.register(BlogCategory)
+class BlogCategoryAdmin(admin.ModelAdmin):
+    inlines = [
+        BlogPostInline,
+    ]
+
+
+@admin.register(BlogPost)
+class BlogPostAdmin(admin.ModelAdmin):
+    filter_horizontal = ("tags",)
+
+
+admin.site.register(BlogTag)
+
+
+# =========================================================
+# CONTACT INQUIRY
+# =========================================================
 
 @admin.register(ContactInquiry)
 class ContactInquiryAdmin(admin.ModelAdmin):
@@ -82,6 +199,10 @@ class ContactInquiryAdmin(admin.ModelAdmin):
         "-created_at",
     )
 
+
+# =========================================================
+# TRAINING ENROLLMENT
+# =========================================================
 
 @admin.register(TrainingEnrollment)
 class TrainingEnrollmentAdmin(admin.ModelAdmin):
@@ -125,22 +246,19 @@ class TrainingEnrollmentAdmin(admin.ModelAdmin):
 
         old_status = None
 
-        # Get the previous status before saving
         if change and obj.pk:
             old_enrollment = TrainingEnrollment.objects.get(
                 pk=obj.pk
             )
             old_status = old_enrollment.status
 
-        # Save the enrollment
         super().save_model(
             request,
             obj,
             form,
-            change
+            change,
         )
 
-        # Send SMS only when status has changed
         if change and old_status != obj.status:
 
             print("\n======================================")
@@ -153,21 +271,23 @@ class TrainingEnrollmentAdmin(admin.ModelAdmin):
             print("======================================")
 
             try:
-
                 result = send_enrollment_status_sms(obj)
 
                 print(
                     "STATUS SMS RESULT:",
-                    result
+                    result,
                 )
 
             except Exception as exc:
-
                 print(
                     "STATUS SMS ERROR:",
-                    repr(exc)
+                    repr(exc),
                 )
 
+
+# =========================================================
+# SMS SETTINGS
+# =========================================================
 
 @admin.register(SMSSettings)
 class SMSSettingsAdmin(admin.ModelAdmin):
@@ -183,12 +303,16 @@ class SMSSettingsAdmin(admin.ModelAdmin):
     )
 
     def has_add_permission(self, request):
-
         if SMSSettings.objects.exists():
             return False
 
         return super().has_add_permission(request)
-    
+
+
+# =========================================================
+# REVIEWS
+# =========================================================
+
 @admin.register(Review)
 class ReviewAdmin(admin.ModelAdmin):
 
@@ -236,6 +360,11 @@ class ReviewAdmin(admin.ModelAdmin):
         "order",
         "-created_at",
     )
+
+
+# =========================================================
+# SITE SETTINGS
+# =========================================================
 
 @admin.register(SiteSettings)
 class SiteSettingsAdmin(admin.ModelAdmin):
