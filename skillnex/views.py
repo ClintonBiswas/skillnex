@@ -305,17 +305,11 @@ def Contact(request):
                 "Please enter your phone or WhatsApp number."
             )
 
-        elif len(phone) < 7:
+        elif len("".join(filter(str.isdigit, phone))) != 11:
 
             errors["phone"] = (
-                "Please enter a valid phone number."
-            )
-
-        elif len(phone) > 30:
-
-            errors["phone"] = (
-                "Phone number is too long."
-            )
+            "Please enter a valid 11-digit phone number."
+        )
 
 
         # -----------------------------------------
